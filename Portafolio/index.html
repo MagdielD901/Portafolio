@@ -5,40 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magdiel Dominguez — Desarrollador Full Stack</title>
 
-  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-
-  <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
     /* =====================
-       DESIGN TOKENS
+       TOKENS
     ===================== */
     :root {
       --black: #030303;
       --white: #f5f4f0;
       --accent: #3b82f6;
       --accent-dim: rgba(59,130,246,0.12);
-      --accent-glow: rgba(59,130,246,0.35);
+      --accent-glow: rgba(59,130,246,0.30);
       --surface: rgba(255,255,255,0.04);
       --surface-hover: rgba(255,255,255,0.07);
       --border: rgba(255,255,255,0.08);
-      --border-strong: rgba(255,255,255,0.16);
-      --text-muted: rgba(245,244,240,0.5);
-      --radius: 16px;
-      --radius-lg: 24px;
-      --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      --border-strong: rgba(255,255,255,0.18);
+      --muted: rgba(245,244,240,0.5);
+      --r: 14px;
+      --rl: 20px;
+      --ease: 0.4s cubic-bezier(0.22,1,0.36,1);
     }
 
-    /* =====================
-       RESET & BASE
-    ===================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -49,749 +40,376 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Grain texture overlay */
+    /* grain overlay */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       opacity: 0.4;
     }
 
-    /* Ambient light blobs */
-    .ambient {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.18;
-    }
-    .ambient-1 {
-      width: 600px; height: 600px;
-      background: var(--accent);
-      top: -200px; left: -200px;
-    }
-    .ambient-2 {
-      width: 400px; height: 400px;
-      background: #6366f1;
-      bottom: 10%; right: -100px;
+    /* ambient blobs */
+    .amb { position: fixed; border-radius: 50%; filter: blur(110px); pointer-events: none; z-index: 0; opacity: 0.14; }
+    .amb-1 { width: 500px; height: 500px; background: var(--accent); top: -180px; left: -180px; }
+    .amb-2 { width: 340px; height: 340px; background: #6366f1; bottom: 8%; right: -80px; }
+
+    /* layout */
+    .wrap { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    @media (max-width: 480px) { .wrap { padding: 0 16px; } }
+
+    section { padding: 80px 0; }
+    @media (max-width: 600px) { section { padding: 56px 0; } }
+
+    /* type */
+    h1,h2,h3,h4,h5,h6 { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--white); line-height: 1.1; }
+    p { color: var(--muted); line-height: 1.75; }
+
+    .label {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.73rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      border: 1px solid rgba(59,130,246,0.22);
+      padding: 5px 13px; border-radius: 999px; margin-bottom: 20px;
     }
 
-    /* =====================
-       TYPOGRAPHY
-    ===================== */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.1;
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
     }
-
-    p { color: var(--text-muted); line-height: 1.75; }
-
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid rgba(59,130,246,0.25);
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 24px;
-    }
-
-    /* =====================
-       LAYOUT
-    ===================== */
-    .container { position: relative; z-index: 1; }
-    section { padding: 120px 0; }
 
     /* =====================
        NAVBAR
     ===================== */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 999;
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: rgba(3,3,3,0.65);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      background: rgba(3,3,3,0.72);
       border-bottom: 1px solid var(--border);
-      transition: var(--transition);
     }
+    @media (max-width: 480px) { nav { padding: 12px 16px; } }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--white);
-      letter-spacing: -0.02em;
-      text-decoration: none;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem;
+      color: var(--white); letter-spacing: -0.02em; text-decoration: none;
     }
     .nav-logo span { color: var(--accent); }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px;
+    .nav-pill {
+      display: flex; align-items: center; gap: 2px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 999px; padding: 5px;
+    }
+    .nav-pill a {
+      font-size: 0.82rem; font-weight: 400; color: var(--muted);
+      text-decoration: none; padding: 7px 15px; border-radius: 999px;
+      transition: var(--ease);
+    }
+    .nav-pill a:hover { color: var(--white); background: var(--surface-hover); }
+
+    .hamburger {
+      display: none; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--white); font-size: 20px;
+      cursor: pointer; transition: var(--ease); flex-shrink: 0;
+    }
+    .hamburger:hover { background: var(--surface-hover); }
+
+    @media (max-width: 680px) {
+      .nav-pill { display: none; }
+      .hamburger { display: flex; }
     }
 
-    .nav-link-item {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      font-weight: 400;
-      color: var(--text-muted) !important;
-      text-decoration: none;
-      padding: 8px 18px;
-      border-radius: 999px;
-      transition: var(--transition);
-    }
-    .nav-link-item:hover {
-      color: var(--white) !important;
-      background: var(--surface-hover);
-    }
-
-    .hamburger-btn {
-      display: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      width: 44px; height: 44px;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--white);
-      font-size: 20px;
-      transition: var(--transition);
-    }
-    .hamburger-btn:hover { background: var(--surface-hover); }
-
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .hamburger-btn { display: flex; }
-    }
-
-    /* Mobile Menu */
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      background: rgba(3,3,3,0.96);
-      backdrop-filter: blur(24px);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
+    /* mobile overlay menu */
+    .mob-menu {
+      position: fixed; inset: 0;
+      background: rgba(3,3,3,0.97); backdrop-filter: blur(24px);
+      display: none; flex-direction: column;
+      justify-content: center; align-items: center; gap: 8px;
       z-index: 998;
     }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 2rem;
-      color: var(--white);
-      text-decoration: none;
-      padding: 12px 32px;
-      border-radius: 12px;
-      transition: var(--transition);
+    .mob-menu.open { display: flex; }
+    .mob-menu a {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.7rem;
+      color: var(--white); text-decoration: none;
+      padding: 12px 40px; border-radius: 12px;
+      transition: var(--ease);
     }
-    .mobile-menu a:hover {
-      color: var(--accent);
-      background: var(--accent-dim);
-    }
-    .mobile-close {
-      position: absolute;
-      top: 24px; right: 24px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      width: 44px; height: 44px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      color: var(--white);
-      font-size: 20px;
+    .mob-menu a:hover { color: var(--accent); background: var(--accent-dim); }
+    .mob-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 40px; height: 40px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 20px; cursor: pointer;
     }
 
     /* =====================
        HERO
     ===================== */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       text-align: center;
-      padding: 0 20px;
-      padding-top: 100px;
+      padding: 100px 20px 60px;
+      position: relative; z-index: 1;
     }
+    @media (max-width: 480px) { .hero { padding: 90px 16px 60px; } }
 
     .hero-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 22px;
     }
     .hero-eyebrow::before, .hero-eyebrow::after {
-      content: '';
-      width: 32px; height: 1px;
-      background: var(--accent);
-      opacity: 0.5;
+      content: ''; flex-shrink: 0; width: 24px; height: 1px;
+      background: var(--accent); opacity: 0.5;
+    }
+    @media (max-width: 400px) {
+      .hero-eyebrow { font-size: 0.62rem; gap: 6px; }
+      .hero-eyebrow::before, .hero-eyebrow::after { width: 12px; }
     }
 
     .hero-title {
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.0;
-      margin-bottom: 28px;
-      color: var(--white);
+      font-size: clamp(2.5rem, 10vw, 6rem);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.0;
+      margin-bottom: 18px;
     }
-    .hero-title .accent-word {
+    .hero-title .ghost {
       color: transparent;
-      -webkit-text-stroke: 1px rgba(245,244,240,0.4);
+      -webkit-text-stroke: 1px rgba(245,244,240,0.3);
     }
 
     .hero-sub {
-      font-size: 1.1rem;
-      font-weight: 300;
-      color: var(--text-muted);
-      max-width: 440px;
-      margin: 0 auto 40px;
-      line-height: 1.7;
+      font-size: clamp(0.875rem, 3vw, 1.05rem);
+      color: var(--muted); max-width: 360px; margin: 0 auto 28px; line-height: 1.7;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .hero-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
-    .btn-primary-custom {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      padding: 14px 28px;
-      border-radius: 999px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-primary-custom::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.1);
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: 0 12px 32px var(--accent-glow); color: #fff; }
-    .btn-primary-custom:hover::after { opacity: 1; }
-
-    .btn-ghost-custom {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 400;
-      padding: 13px 28px;
-      border-radius: 999px;
-      text-decoration: none;
-      border: 1px solid var(--border-strong);
-      transition: var(--transition);
-    }
-    .btn-ghost-custom:hover {
-      background: var(--surface-hover);
-      border-color: rgba(255,255,255,0.3);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    /* Scroll indicator */
     .scroll-hint {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      animation: fadeInUp 1s 1.5s both;
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      color: var(--muted); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
     }
-    .scroll-hint i { animation: bounce 2s infinite; }
+    .scroll-hint i { animation: bob 2s infinite; }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+    @media (max-width: 480px) { .scroll-hint { display: none; } }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+    /* =====================
+       BUTTONS
+    ===================== */
+    .btn-p {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--accent); color: #fff;
+      font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500;
+      padding: 12px 24px; border-radius: 999px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: var(--ease); white-space: nowrap;
+    }
+    .btn-p:hover { transform: translateY(-2px); box-shadow: 0 10px 28px var(--accent-glow); color: #fff; }
+
+    .btn-g {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: transparent; color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 400;
+      padding: 11px 24px; border-radius: 999px;
+      text-decoration: none; border: 1px solid var(--border-strong);
+      transition: var(--ease); white-space: nowrap;
+    }
+    .btn-g:hover { background: var(--surface-hover); color: var(--white); transform: translateY(-2px); }
+
+    @media (max-width: 360px) {
+      .btn-p, .btn-g { font-size: 0.8rem; padding: 10px 18px; }
     }
 
     /* =====================
-       ABOUT SECTION
+       ABOUT
     ===================== */
     .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
     }
-
-    @media (max-width: 900px) {
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
     }
 
     .about-heading {
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
+      font-size: clamp(1.4rem, 4vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 16px;
     }
-
-    .about-text {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: var(--text-muted);
-      margin-bottom: 36px;
-    }
-
-    .about-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .about-text { font-size: 0.9375rem; line-height: 1.75; }
+    .about-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
 
     .about-visual {
-      position: relative;
-      aspect-ratio: 4/3;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      position: relative; aspect-ratio: 4/3; border-radius: var(--rl);
+      overflow: hidden; background: var(--surface); border: 1px solid var(--border);
     }
-    .about-visual img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.85;
-      transition: var(--transition);
-    }
-    .about-visual:hover img { opacity: 1; transform: scale(1.03); }
-    /* Decorative corner accent */
+    .about-visual img { width: 100%; height: 100%; object-fit: cover; transition: var(--ease); }
+    .about-visual:hover img { transform: scale(1.04); }
     .about-visual::before {
-      content: '';
-      position: absolute;
-      top: -1px; right: -1px;
-      width: 80px; height: 80px;
-      border-top: 2px solid var(--accent);
-      border-right: 2px solid var(--accent);
-      border-radius: 0 var(--radius-lg) 0 0;
-      z-index: 2;
+      content: ''; position: absolute; top: -1px; right: -1px;
+      width: 56px; height: 56px;
+      border-top: 2px solid var(--accent); border-right: 2px solid var(--accent);
+      border-radius: 0 var(--rl) 0 0; z-index: 2;
     }
     .about-visual::after {
-      content: '';
-      position: absolute;
-      bottom: -1px; left: -1px;
-      width: 80px; height: 80px;
-      border-bottom: 2px solid var(--accent);
-      border-left: 2px solid var(--accent);
-      border-radius: 0 0 0 var(--radius-lg);
-      z-index: 2;
+      content: ''; position: absolute; bottom: -1px; left: -1px;
+      width: 56px; height: 56px;
+      border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent);
+      border-radius: 0 0 0 var(--rl); z-index: 2;
     }
 
-    /* =====================
-       STATS ROW
-    ===================== */
+    /* stats */
     .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-top: 64px;
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--r);
+      overflow: hidden; margin-top: 52px;
     }
+    @media (max-width: 460px) { .stats-row { grid-template-columns: 1fr; } }
 
     .stat-item {
-      background: var(--black);
-      padding: 32px 24px;
-      text-align: center;
-      transition: var(--transition);
+      background: var(--black); padding: 28px 16px; text-align: center; transition: var(--ease);
     }
     .stat-item:hover { background: var(--surface); }
-
-    .stat-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: var(--white);
-      letter-spacing: -0.04em;
-      display: block;
+    .stat-n {
+      font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,5vw,2.4rem); font-weight: 800;
+      color: var(--white); letter-spacing: -0.04em; display: block;
     }
-    .stat-label {
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 4px;
+    .stat-l {
+      font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--muted); margin-top: 4px; display: block;
     }
 
     /* =====================
        EXPERIENCE / TIMELINE
     ===================== */
-    .timeline {
-      position: relative;
-      max-width: 780px;
-      margin: 0 auto;
-    }
-
+    .timeline { position: relative; max-width: 700px; margin: 0 auto; }
     .timeline::before {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 8px; bottom: 8px;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
+      content: ''; position: absolute;
+      left: 14px; top: 6px; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
     }
 
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 56px 1fr;
-      gap: 24px;
-      margin-bottom: 32px;
+    .t-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; margin-bottom: 20px; }
+    .t-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 5px; }
+    .t-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 4px var(--accent-dim); flex-shrink: 0;
     }
 
-    .timeline-dot-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 6px;
+    .t-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 20px 22px; transition: var(--ease);
     }
+    .t-card:hover { border-color: var(--border-strong); background: var(--surface-hover); }
+    @media (max-width: 480px) { .t-card { padding: 16px 14px; } }
 
-    .timeline-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px var(--accent-dim);
-      flex-shrink: 0;
+    .t-meta {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 7px; display: flex; align-items: center; gap: 6px;
     }
+    .t-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .t-role { font-size: 0.83rem; color: var(--muted); margin-bottom: 12px; }
+    .t-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+    .t-desc ul { list-style: none; padding: 0; }
+    .t-desc ul li { position: relative; padding-left: 14px; margin-bottom: 4px; font-size: 0.83rem; }
+    .t-desc ul li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 2px; }
 
-    .timeline-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      transition: var(--transition);
-    }
-    .timeline-card:hover {
-      border-color: var(--border-strong);
-      background: var(--surface-hover);
-      transform: translateX(4px);
-    }
-
-    .timeline-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .timeline-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-
-    .timeline-role {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-
-    .timeline-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .timeline-desc ul {
-      list-style: none;
-      padding: 0;
-    }
-    .timeline-desc ul li {
-      padding: 4px 0;
-      padding-left: 16px;
-      position: relative;
-      font-size: 0.875rem;
-    }
-    .timeline-desc ul li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-size: 0.75rem;
-    }
-
-    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
-
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .tag {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 5px 12px;
-      border-radius: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      transition: var(--transition);
+      font-size: 0.7rem; font-weight: 500; padding: 4px 10px;
+      border-radius: 6px; background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); transition: var(--ease);
     }
-    .tag:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
 
     /* =====================
-       SKILLS
+       SKILLS + LANG
     ===================== */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      max-width: 640px;
-      margin: 0 auto;
+    .skills-cols {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: start;
     }
+    @media (max-width: 700px) { .skills-cols { grid-template-columns: 1fr; gap: 40px; } }
 
+    .sec-h { font-size: clamp(1.3rem, 3.5vw, 2rem); letter-spacing: -0.02em; margin-bottom: 22px; }
+
+    .skill-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
     .skill-pill {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 10px 22px;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      cursor: default;
-      transition: var(--transition);
+      font-size: 0.83rem; font-weight: 500; padding: 9px 18px;
+      border-radius: 999px; background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); cursor: default; transition: var(--ease);
     }
-    .skill-pill:hover {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
+    .skill-pill:hover { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-    /* Languages */
-    .lang-grid {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 440px;
-      margin: 0 auto;
-    }
+    .lang-row { display: flex; gap: 12px; flex-wrap: wrap; }
     .lang-card {
-      flex: 1;
-      min-width: 160px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 20px;
-      text-align: center;
-      transition: var(--transition);
+      flex: 1; min-width: 120px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 22px 16px; text-align: center; transition: var(--ease);
     }
-    .lang-card:hover {
-      border-color: var(--border-strong);
-      background: var(--surface-hover);
-      transform: translateY(-4px);
-    }
-    .lang-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-    .lang-level {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-    }
+    .lang-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+    .lang-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .lang-lvl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
 
     /* =====================
        PROJECTS
     ===================== */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    .sec-title { font-size: clamp(1.5rem, 5vw, 2.8rem); letter-spacing: -0.025em; margin-bottom: 10px; }
+    .sec-sub { font-size: 0.9rem; color: var(--muted); max-width: 420px; margin: 0 auto; }
+
+    .proj-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
     }
-    @media (max-width: 1024px) {
-      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 960px) { .proj-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 540px) { .proj-grid { grid-template-columns: 1fr; } }
+
+    .proj-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--rl); overflow: hidden;
+      display: flex; flex-direction: column; transition: var(--ease); cursor: pointer;
     }
-    @media (max-width: 600px) {
-      .projects-grid { grid-template-columns: 1fr; }
+    .proj-card:hover { border-color: var(--border-strong); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+
+    .proj-thumb { aspect-ratio: 16/10; overflow: hidden; position: relative; }
+    .proj-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s cubic-bezier(0.22,1,0.36,1); }
+    .proj-card:hover .proj-thumb img { transform: scale(1.06); }
+    .proj-thumb::after {
+      content: 'Ver proyecto'; position: absolute; inset: 0;
+      background: rgba(3,3,3,0.65);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.1em; text-transform: uppercase;
+      opacity: 0; transition: var(--ease);
+    }
+    .proj-card:hover .proj-thumb::after { opacity: 1; }
+
+    .proj-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+    .proj-name { font-family: 'Syne', sans-serif; font-size: 0.97rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .proj-desc { font-size: 0.8rem; line-height: 1.6; color: var(--muted); margin-bottom: 12px; flex: 1; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+    .proj-tag {
+      font-size: 0.68rem; font-weight: 500; padding: 3px 9px; border-radius: 5px;
+      background: var(--accent-dim); border: 1px solid rgba(59,130,246,0.2); color: rgba(59,130,246,0.9);
     }
 
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-    .project-card:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-6px);
-      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-    }
-
-    .project-thumb {
-      aspect-ratio: 16/10;
-      overflow: hidden;
-      position: relative;
-    }
-    .project-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .project-card:hover .project-thumb img { transform: scale(1.06); }
-
-    /* Thumb overlay on hover */
-    .project-thumb::after {
-      content: 'Ver proyecto';
-      position: absolute;
-      inset: 0;
-      background: rgba(3,3,3,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .project-card:hover .project-thumb::after { opacity: 1; }
-
-    .project-body {
-      padding: 24px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .project-desc {
-      font-size: 0.85rem;
-      line-height: 1.65;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-
-    .project-tag {
-      font-size: 0.72rem;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 5px;
-      background: rgba(59,130,246,0.08);
-      border: 1px solid rgba(59,130,246,0.18);
-      color: rgba(59,130,246,0.9);
-    }
-
-    .project-actions { display: flex; gap: 10px; }
-
+    .proj-actions { display: flex; gap: 8px; }
     .btn-view {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.82rem;
-      font-weight: 500;
-      padding: 9px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--accent); color: #fff;
+      font-size: 0.78rem; font-weight: 500;
+      padding: 8px 14px; border-radius: 8px;
+      border: none; cursor: pointer; text-decoration: none; transition: var(--ease);
     }
     .btn-view:hover { opacity: 0.85; color: #fff; }
-
     .btn-fav {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.82rem;
-      font-weight: 400;
-      padding: 9px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      transition: var(--transition);
+      display: inline-flex; align-items: center; gap: 5px;
+      background: transparent; color: var(--muted);
+      font-size: 0.78rem; padding: 8px 12px; border-radius: 8px;
+      border: 1px solid var(--border); cursor: pointer; transition: var(--ease);
     }
     .btn-fav:hover { border-color: var(--border-strong); color: var(--white); }
     .btn-fav.fav-active { background: rgba(250,204,21,0.1); border-color: rgba(250,204,21,0.4); color: #facc15; }
@@ -800,433 +418,245 @@
        MODALS
     ===================== */
     .modal-content {
-      background: #0d0d0d;
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-lg) !important;
+      background: #0d0d0d !important;
+      border: 1px solid var(--border-strong) !important;
+      border-radius: var(--rl) !important;
       overflow: hidden;
     }
-
-    .modal-carousel-wrap {
-      padding: 16px;
-      background: #111;
-      position: relative;
-    }
-
-    .carousel-inner { border-radius: var(--radius); overflow: hidden; }
-
+    .modal-carousel-wrap { padding: 12px; background: #111; position: relative; }
+    .carousel-inner { border-radius: var(--r); overflow: hidden; }
     .loader-pill {
-      position: absolute;
-      bottom: 26px; left: 50%;
-      transform: translateX(-50%);
-      width: 120px; height: 4px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 999px;
-      overflow: hidden;
-      z-index: 10;
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      width: 96px; height: 3px;
+      background: rgba(255,255,255,0.1); border-radius: 999px; overflow: hidden; z-index: 10;
     }
-    .loader-bar {
-      height: 100%;
-      width: 0%;
-      background: var(--accent);
-      border-radius: 999px;
-    }
+    .loader-bar { height: 100%; width: 0%; background: var(--accent); border-radius: 999px; }
 
-    .modal-info {
-      padding: 28px 32px;
+    .modal-info { padding: 20px 22px 24px; }
+    @media (max-width: 480px) { .modal-info { padding: 16px; } }
+    .modal-tc { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .modal-dc { font-size: 0.875rem; line-height: 1.75; color: var(--muted); }
+
+    .modal-x {
+      position: absolute; top: 12px; right: 12px;
+      width: 32px; height: 32px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 16px; cursor: pointer;
+      text-decoration: none; transition: var(--ease); z-index: 10;
     }
-    .modal-title-custom {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 10px;
-    }
-    .modal-desc {
-      font-size: 0.9rem;
-      line-height: 1.75;
-      color: var(--text-muted);
-    }
-    .modal-close-btn {
-      position: absolute;
-      top: 16px; right: 16px;
-      width: 36px; height: 36px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted);
-      font-size: 18px;
-      cursor: pointer;
-      transition: var(--transition);
-      z-index: 10;
-      text-decoration: none;
-    }
-    .modal-close-btn:hover { background: var(--surface-hover); color: var(--white); }
+    .modal-x:hover { background: var(--surface-hover); color: var(--white); }
 
     /* =====================
        FOOTER
     ===================== */
-    footer {
-      padding: 64px 0 40px;
-      border-top: 1px solid var(--border);
-      margin-top: 40px;
-    }
+    footer { padding: 52px 0 28px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
 
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 48px;
-      margin-bottom: 64px;
-      flex-wrap: wrap;
+    .footer-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr 1.4fr;
+      gap: 36px; margin-bottom: 40px;
     }
+    @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+    @media (max-width: 460px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
 
-    .footer-brand .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: var(--white);
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-    .footer-brand .footer-logo span { color: var(--accent); }
-    .footer-brand p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      max-width: 260px;
-    }
+    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--white); margin-bottom: 9px; }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 0.83rem; color: var(--muted); max-width: 230px; line-height: 1.6; }
 
-    .footer-nav-group h6 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 16px;
+    .footer-col h6 {
+      font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
     }
-    .footer-nav-group a {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-bottom: 10px;
-      transition: var(--transition);
+    .footer-col a {
+      display: block; font-size: 0.86rem; color: var(--muted);
+      text-decoration: none; margin-bottom: 8px; transition: var(--ease);
     }
-    .footer-nav-group a:hover { color: var(--white); }
+    .footer-col a:hover { color: var(--white); }
 
-    .footer-contact-group h6 {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-    }
-    .footer-contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    .footer-contact-item i { color: var(--accent); }
+    .fci { display: flex; align-items: flex-start; gap: 8px; font-size: 0.83rem; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
+    .fci i { color: var(--accent); margin-top: 1px; flex-shrink: 0; }
 
     .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-      gap: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 20px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px;
     }
-    .footer-copy {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    .footer-copy { font-size: 0.75rem; color: var(--muted); }
+    .footer-socials { display: flex; gap: 8px; }
+    .soc {
+      width: 34px; height: 34px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; font-size: 14px; transition: var(--ease);
     }
-    .footer-socials {
-      display: flex;
-      gap: 10px;
-    }
-    .social-icon {
-      width: 38px; height: 38px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 16px;
-      transition: var(--transition);
-    }
-    .social-icon:hover {
-      background: var(--surface-hover);
-      border-color: var(--border-strong);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    /* =====================
-       DIVIDER
-    ===================== */
-    .section-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-    }
+    .soc:hover { background: var(--surface-hover); border-color: var(--border-strong); color: var(--white); transform: translateY(-2px); }
 
     /* =====================
        ANIMATIONS
     ===================== */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    .fade-in-up {
-      animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.45s; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    .fu { animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both; }
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.22s; }
+    .d3 { animation-delay: 0.38s; }
+    .d4 { animation-delay: 0.52s; }
 
-    /* Scroll reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    @keyframes loadBarAnim { from{width:0%} to{width:100%} }
 
-    /* section heading */
-    .section-heading {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      letter-spacing: -0.025em;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 480px;
-      margin: 0 auto;
+    /* center labels on mobile */
+    @media (max-width: 600px) {
+      .text-center-mobile { text-align: center; }
+      .text-center-mobile .label { margin-left: auto; margin-right: auto; }
+      .text-center-mobile .about-actions { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient -->
-  <div class="ambient ambient-1"></div>
-  <div class="ambient ambient-2"></div>
+  <div class="amb amb-1"></div>
+  <div class="amb amb-2"></div>
 
   <!-- =====================
        NAVBAR
   ===================== -->
-  <nav id="navbar">
+  <nav>
     <a href="#" class="nav-logo">Magdiel<span>.</span></a>
-
-    <div class="nav-links">
-      <a href="#about" class="nav-link-item">Acerca de mí</a>
-      <a href="#experience" class="nav-link-item">Experiencia</a>
-      <a href="#projects" class="nav-link-item">Proyectos</a>
+    <div class="nav-pill">
+      <a href="#about">Acerca de mí</a>
+      <a href="#experience">Experiencia</a>
+      <a href="#projects">Proyectos</a>
     </div>
-
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+    <button class="hamburger" id="hamBtn" aria-label="Abrir menú">
       <i class="bi bi-list"></i>
     </button>
   </nav>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-close" id="mobileClose"><i class="bi bi-x"></i></button>
-    <a href="#about" class="mobile-link">Acerca de mí</a>
-    <a href="#experience" class="mobile-link">Experiencia</a>
-    <a href="#projects" class="mobile-link">Proyectos</a>
+  <!-- Mobile menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" id="mobClose"><i class="bi bi-x"></i></button>
+    <a href="#about" class="mob-link">Acerca de mí</a>
+    <a href="#experience" class="mob-link">Experiencia</a>
+    <a href="#projects" class="mob-link">Proyectos</a>
   </div>
 
   <!-- =====================
        HERO
   ===================== -->
-  <section class="hero" id="home">
-    <div class="hero-eyebrow fade-in-up">
-      Jesús Magdiel Dominguez Baca
-    </div>
-
-    <h1 class="hero-title fade-in-up delay-1">
-      Desarrollador<br>
-      <span class="accent-word">Full Stack</span>
+  <section class="hero">
+    <div class="hero-eyebrow fu">Jesús Magdiel Dominguez Baca</div>
+    <h1 class="hero-title fu d1">
+      Desarrollador<br><span class="ghost">Full Stack</span>
     </h1>
-
-    <p class="hero-sub fade-in-up delay-2">
+    <p class="hero-sub fu d2">
       Diseño y construyo aplicaciones web y móviles modernas, escalables y con atención al detalle.
     </p>
-
-    <div class="hero-actions fade-in-up delay-3">
-      <a href="#projects" class="btn-primary-custom">
-        Ver proyectos <i class="bi bi-arrow-right"></i>
-      </a>
-      <a href="#about" class="btn-ghost-custom">
-        Acerca de mí
-      </a>
+    <div class="hero-actions fu d3">
+      <a href="#projects" class="btn-p">Ver proyectos <i class="bi bi-arrow-right"></i></a>
+      <a href="#about" class="btn-g">Acerca de mí</a>
     </div>
-
-    <div class="scroll-hint">
-      Scroll <i class="bi bi-chevron-down"></i>
-    </div>
+    <div class="scroll-hint fu d4">Scroll <i class="bi bi-chevron-down"></i></div>
   </section>
 
   <!-- =====================
        ABOUT
   ===================== -->
   <section id="about">
-    <div class="container">
+    <div class="wrap">
       <div class="about-grid">
-        <!-- Text -->
-        <div class="reveal">
-          <div class="section-label">
-            <i class="bi bi-person"></i> Acerca de mí
-          </div>
-
-          <h2 class="about-heading">
-            Enfocado en crear experiencias<br>
-            digitales que importan
-          </h2>
-
+        <div class="reveal text-center-mobile">
+          <div class="label"><i class="bi bi-person"></i> Acerca de mí</div>
+          <h2 class="about-heading">Enfocado en crear experiencias digitales que importan</h2>
           <p class="about-text">
             Soy estudiante de Ingeniería en Sistemas Computacionales con enfoque en desarrollo Full Stack. Me especializo en construir aplicaciones web y móviles que combinan interfaces modernas con lógica backend eficiente. Me interesa crecer profesionalmente y contribuir a proyectos reales con impacto.
           </p>
-
           <div class="about-actions">
-            <a href="#projects" class="btn-primary-custom">
-              <i class="bi bi-code-slash"></i> Proyectos
-            </a>
-            <a href="./img/Documentos/CV.pdf" download="Magdiel_CV.pdf" class="btn-ghost-custom">
-              <i class="bi bi-download"></i> Descargar CV
-            </a>
+            <a href="#projects" class="btn-p"><i class="bi bi-code-slash"></i> Proyectos</a>
+            <a href="./img/Documentos/CV.pdf" download="Magdiel_CV.pdf" class="btn-g"><i class="bi bi-download"></i> Descargar CV</a>
           </div>
         </div>
-
-        <!-- Visual -->
-        <div class="about-visual reveal" style="animation-delay:0.15s">
-          <img src="./img/Swoopy/2.png" alt="Magdiel Dominguez — Desarrollador Full Stack">
+        <div class="about-visual reveal" style="transition-delay:0.12s">
+          <img src="./img/Swoopy/2.png" alt="Magdiel Dominguez">
         </div>
       </div>
 
-      <!-- Stats -->
-      <div class="stats-row reveal" style="margin-top:80px">
+      <div class="stats-row reveal" style="transition-delay:0.08s">
         <div class="stat-item">
-          <span class="stat-number">6+</span>
-          <span class="stat-label">Proyectos completados</span>
+          <span class="stat-n">6+</span>
+          <span class="stat-l">Proyectos</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">4+</span>
-          <span class="stat-label">Años de práctica</span>
+          <span class="stat-n">4+</span>
+          <span class="stat-l">Años de práctica</span>
         </div>
         <div class="stat-item">
-          <span class="stat-number">8+</span>
-          <span class="stat-label">Tecnologías dominadas</span>
+          <span class="stat-n">8+</span>
+          <span class="stat-l">Tecnologías</span>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="container"><div class="section-divider"></div></div>
+  <div class="wrap"><div class="divider"></div></div>
 
   <!-- =====================
        EXPERIENCE
   ===================== -->
   <section id="experience">
-    <div class="container">
+    <div class="wrap">
       <div class="text-center mb-5 reveal">
-        <div class="section-label" style="margin:0 auto 20px;">
-          <i class="bi bi-briefcase"></i> Experiencia
-        </div>
-        <h2 class="section-heading">Mi camino en el desarrollo</h2>
-        <p class="section-sub">Un recorrido por los proyectos y etapas que han formado mi perfil como desarrollador.</p>
+        <div class="label" style="margin:0 auto 18px"><i class="bi bi-briefcase"></i> Experiencia</div>
+        <h2 class="sec-title">Mi camino en el desarrollo</h2>
+        <p class="sec-sub">Proyectos y etapas que han formado mi perfil como desarrollador.</p>
       </div>
 
       <div class="timeline">
 
-        <!-- Item 1 -->
-        <div class="timeline-item reveal">
-          <div class="timeline-dot-wrap">
-            <div class="timeline-dot"></div>
-          </div>
-          <div class="timeline-card">
-            <div class="timeline-meta">
-              <i class="bi bi-circle-fill" style="font-size:6px"></i> En desarrollo
-            </div>
-            <div class="timeline-title">Swoopy — Proyecto Principal</div>
-            <div class="timeline-role">Desarrollador Full-Stack</div>
-            <div class="timeline-desc">
+        <div class="t-item reveal">
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-card">
+            <div class="t-meta"><i class="bi bi-circle-fill" style="font-size:5px"></i> En desarrollo</div>
+            <div class="t-title">Swoopy — Proyecto Principal</div>
+            <div class="t-role">Desarrollador Full-Stack</div>
+            <div class="t-desc">
               <ul>
-                <li>Aplicación tipo red social con sistema de usuarios, feed e interacción</li>
-                <li>Módulo marketplace integrado con sistema de recompensas (Orbix)</li>
-                <li>Backend robusto con Laravel y base de datos relacional</li>
+                <li>Red social con sistema de usuarios, feed e interacción</li>
+                <li>Módulo marketplace + sistema de recompensas Orbix</li>
+                <li>Backend con Laravel y base de datos relacional</li>
                 <li>Frontend móvil con React Native y TypeScript</li>
-                <li>Comunicación completa mediante APIs REST</li>
+                <li>Comunicación mediante APIs REST</li>
               </ul>
             </div>
-            <div class="tag-row">
-              <span class="tag">React Native</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">Laravel</span>
+            <div class="tags">
+              <span class="tag">React Native</span><span class="tag">TypeScript</span>
+              <span class="tag">MySQL</span><span class="tag">Laravel</span>
             </div>
           </div>
         </div>
 
-        <!-- Item 2 -->
-        <div class="timeline-item reveal" style="transition-delay:0.1s">
-          <div class="timeline-dot-wrap">
-            <div class="timeline-dot"></div>
-          </div>
-          <div class="timeline-card">
-            <div class="timeline-meta">
-              <i class="bi bi-circle-fill" style="font-size:6px"></i> En formación
-            </div>
-            <div class="timeline-title">Proyectos Universitarios y Personales</div>
-            <div class="timeline-role">Desarrollador Full-Stack</div>
-            <div class="timeline-desc">
-              Construcción de aplicaciones web completas: dashboards, sliders, filtros avanzados, integración de APIs, componentes React y sistemas interactivos. Enfoque constante en interfaces limpias, funcionales y responsivas conectadas con backends bien estructurados.
-            </div>
-            <div class="tag-row">
-              <span class="tag">React</span>
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">PHP</span>
-              <span class="tag">Laravel</span>
+        <div class="t-item reveal" style="transition-delay:0.1s">
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-card">
+            <div class="t-meta"><i class="bi bi-circle-fill" style="font-size:5px"></i> En formación</div>
+            <div class="t-title">Proyectos Universitarios y Personales</div>
+            <div class="t-role">Desarrollador Full-Stack</div>
+            <div class="t-desc">Construcción de aplicaciones web completas: dashboards, filtros avanzados, integración de APIs, componentes React y sistemas interactivos. Enfoque en interfaces responsivas conectadas con backends bien estructurados.</div>
+            <div class="tags">
+              <span class="tag">React</span><span class="tag">HTML</span><span class="tag">CSS</span>
+              <span class="tag">JavaScript</span><span class="tag">Node.js</span>
+              <span class="tag">MySQL</span><span class="tag">PHP</span><span class="tag">Laravel</span>
             </div>
           </div>
         </div>
 
-        <!-- Item 3 -->
-        <div class="timeline-item reveal" style="transition-delay:0.2s">
-          <div class="timeline-dot-wrap">
-            <div class="timeline-dot"></div>
-          </div>
-          <div class="timeline-card">
-            <div class="timeline-meta">
-              <i class="bi bi-circle-fill" style="font-size:6px"></i> 2022 – 2024
-            </div>
-            <div class="timeline-title">Proyectos y Colaboraciones</div>
-            <div class="timeline-role">Desarrollador Web</div>
-            <div class="timeline-desc">
-              Landing pages, optimización visual, animaciones ligeras, integración de menús y personalización de estilos. Apoyo en proyectos familiares y personales, desarrollando sensibilidad por el detalle visual y la experiencia de usuario.
-            </div>
-            <div class="tag-row">
-              <span class="tag">JavaScript</span>
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
+        <div class="t-item reveal" style="transition-delay:0.2s">
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-card">
+            <div class="t-meta"><i class="bi bi-circle-fill" style="font-size:5px"></i> 2022 – 2024</div>
+            <div class="t-title">Proyectos y Colaboraciones</div>
+            <div class="t-role">Desarrollador Web</div>
+            <div class="t-desc">Landing pages, animaciones, integración de menús y personalización visual. Apoyo en proyectos familiares y personales, desarrollando sensibilidad por el detalle y la experiencia de usuario.</div>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
             </div>
           </div>
         </div>
@@ -1235,22 +665,19 @@
     </div>
   </section>
 
-  <div class="container"><div class="section-divider"></div></div>
+  <div class="wrap"><div class="divider"></div></div>
 
   <!-- =====================
        SKILLS + LANGUAGES
   ===================== -->
   <section>
-    <div class="container">
-      <div class="row g-5">
+    <div class="wrap">
+      <div class="skills-cols">
 
-        <!-- Skills -->
-        <div class="col-lg-7 reveal">
-          <div class="section-label">
-            <i class="bi bi-cpu"></i> Habilidades Técnicas
-          </div>
-          <h2 class="section-heading" style="margin-bottom:32px">Stack tecnológico</h2>
-          <div class="skills-grid" style="justify-content:flex-start">
+        <div class="reveal">
+          <div class="label"><i class="bi bi-cpu"></i> Habilidades Técnicas</div>
+          <h2 class="sec-h">Stack tecnológico</h2>
+          <div class="skill-wrap">
             <div class="skill-pill">React</div>
             <div class="skill-pill">React Native</div>
             <div class="skill-pill">Laravel</div>
@@ -1266,20 +693,17 @@
           </div>
         </div>
 
-        <!-- Languages -->
-        <div class="col-lg-5 reveal" style="transition-delay:0.1s">
-          <div class="section-label">
-            <i class="bi bi-translate"></i> Idiomas
-          </div>
-          <h2 class="section-heading" style="margin-bottom:32px">Comunicación</h2>
-          <div class="lang-grid" style="justify-content:flex-start">
+        <div class="reveal" style="transition-delay:0.1s">
+          <div class="label"><i class="bi bi-translate"></i> Idiomas</div>
+          <h2 class="sec-h">Comunicación</h2>
+          <div class="lang-row">
             <div class="lang-card">
               <div class="lang-name">Español</div>
-              <div class="lang-level">Nativo</div>
+              <div class="lang-lvl">Nativo</div>
             </div>
             <div class="lang-card">
               <div class="lang-name">Inglés</div>
-              <div class="lang-level">Nivel B1</div>
+              <div class="lang-lvl">Nivel B1</div>
             </div>
           </div>
         </div>
@@ -1288,164 +712,95 @@
     </div>
   </section>
 
-  <div class="container"><div class="section-divider"></div></div>
+  <div class="wrap"><div class="divider"></div></div>
 
   <!-- =====================
        PROJECTS
   ===================== -->
   <section id="projects">
-    <div class="container">
+    <div class="wrap">
       <div class="text-center mb-5 reveal">
-        <div class="section-label" style="margin:0 auto 20px;">
-          <i class="bi bi-layers"></i> Proyectos
-        </div>
-        <h2 class="section-heading">Trabajo destacado</h2>
-        <p class="section-sub">Una selección de proyectos que reflejan mi proceso, criterio técnico y atención al detalle.</p>
+        <div class="label" style="margin:0 auto 18px"><i class="bi bi-layers"></i> Proyectos</div>
+        <h2 class="sec-title">Trabajo destacado</h2>
+        <p class="sec-sub">Una selección de proyectos que reflejan mi proceso técnico y atención al detalle.</p>
       </div>
 
-      <div class="projects-grid">
+      <div class="proj-grid">
 
-        <!-- Card: Swoopy -->
-        <div class="project-card reveal" data-bs-toggle="modal" data-bs-target="#Modal6">
-          <div class="project-thumb">
-            <img src="./img/Swoopy/1.png" alt="Swoopy">
-          </div>
-          <div class="project-body">
-            <div class="project-name">Swoopy</div>
-            <p class="project-desc">Red social con feed, interacción entre usuarios, sistema de recompensas Orbix y marketplace integrado. "Proyecto en desarrollo, realizado en equipo."</p>
-            <div class="project-tags">
-              <span class="project-tag">React Native</span>
-              <span class="project-tag">Laravel</span>
-              <span class="project-tag">MySQL</span>
-            </div>
-            <div class="project-actions">
-              <button class="btn-view">
-                <i class="bi bi-play-fill"></i> Ver
-              </button>
-              <button class="btn-fav" data-key="swoopy">
-                <i class="bi bi-star"></i> Favorito
-              </button>
+        <div class="proj-card reveal" data-bs-toggle="modal" data-bs-target="#M6">
+          <div class="proj-thumb"><img src="./img/Swoopy/1.png" alt="Swoopy"></div>
+          <div class="proj-body">
+            <div class="proj-name">Swoopy</div>
+            <p class="proj-desc">Red social con feed, interacción entre usuarios, sistema de recompensas Orbix y marketplace integrado. "Proyecto en desarrollo, realizado en equipo."</p>
+            <div class="proj-tags"><span class="proj-tag">React Native</span><span class="proj-tag">Laravel</span><span class="proj-tag">MySQL</span></div>
+            <div class="proj-actions">
+              <button class="btn-view"><i class="bi bi-play-fill"></i> Ver</button>
+              <button class="btn-fav" data-key="swoopy"><i class="bi bi-star"></i> Favorito</button>
             </div>
           </div>
         </div>
 
-        <!-- Card: Velamar -->
-        <div class="project-card reveal" style="transition-delay:0.05s" data-bs-toggle="modal" data-bs-target="#projectModal">
-          <div class="project-thumb">
-            <img src="./img/velamar/velamar1.png" alt="Departamentos Velamar">
-          </div>
-          <div class="project-body">
-            <div class="project-name">Departamentos Velamar</div>
-            <p class="project-desc">Sistema web para explorar departamentos, verificar disponibilidad y gestionar datos mediante un panel administrativo. "Proyecto realizado en equipo."</p>
-            <div class="project-tags">
-              <span class="project-tag">HTML</span>
-              <span class="project-tag">PHP</span>
-              <span class="project-tag">MySQL</span>
-              <span class="project-tag">Bootstrap</span>
-            </div>
-            <div class="project-actions">
-              <button class="btn-view">
-                <i class="bi bi-play-fill"></i> Ver
-              </button>
-              <button class="btn-fav" data-key="velamar">
-                <i class="bi bi-star"></i> Favorito
-              </button>
+        <div class="proj-card reveal" style="transition-delay:0.05s" data-bs-toggle="modal" data-bs-target="#M1">
+          <div class="proj-thumb"><img src="./img/velamar/velamar1.png" alt="Velamar"></div>
+          <div class="proj-body">
+            <div class="proj-name">Departamentos Velamar</div>
+            <p class="proj-desc">Sistema para explorar departamentos, verificar disponibilidad y gestionar datos con panel administrativo. "Proyecto realizado en equipo."</p>
+            <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span></div>
+            <div class="proj-actions">
+              <button class="btn-view"><i class="bi bi-play-fill"></i> Ver</button>
+              <button class="btn-fav" data-key="velamar"><i class="bi bi-star"></i> Favorito</button>
             </div>
           </div>
         </div>
 
-        <!-- Card: Ayuntamiento -->
-        <div class="project-card reveal" style="transition-delay:0.1s" data-bs-toggle="modal" data-bs-target="#Modal2">
-          <div class="project-thumb">
-            <img src="./img/Ayuntamiento/a1.png" alt="H. Ayuntamiento">
-          </div>
-          <div class="project-body">
-            <div class="project-name">H. Ayuntamiento</div>
-            <p class="project-desc">Diseño de plataforma digital para consultar acuerdos, organizar sesiones y facilitar la gestión interna del Ayuntamiento. "Proyecto realizado en equipo."</p>
-            <div class="project-tags">
-              <span class="project-tag">HTML</span>
-              <span class="project-tag">CSS</span>
-              <span class="project-tag">Bootstrap</span>
-            </div>
-            <div class="project-actions">
-              <button class="btn-view">
-                <i class="bi bi-play-fill"></i> Ver
-              </button>
-              <button class="btn-fav" data-key="ayuntamiento">
-                <i class="bi bi-star"></i> Favorito
-              </button>
+        <div class="proj-card reveal" style="transition-delay:0.1s" data-bs-toggle="modal" data-bs-target="#M2">
+          <div class="proj-thumb"><img src="./img/Ayuntamiento/a1.png" alt="Ayuntamiento"></div>
+          <div class="proj-body">
+            <div class="proj-name">H. Ayuntamiento</div>
+            <p class="proj-desc">Diseño de plataforma para consultar acuerdos, organizar sesiones y facilitar la gestión interna del Ayuntamiento. "Proyecto realizado en equipo."</p>
+            <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">Bootstrap</span></div>
+            <div class="proj-actions">
+              <button class="btn-view"><i class="bi bi-play-fill"></i> Ver</button>
+              <button class="btn-fav" data-key="ayuntamiento"><i class="bi bi-star"></i> Favorito</button>
             </div>
           </div>
         </div>
 
-        <!-- Card: Ferreti -->
-        <div class="project-card reveal" style="transition-delay:0.15s" data-bs-toggle="modal" data-bs-target="#Modal3">
-          <div class="project-thumb">
-            <img src="./img/Ferreti/f1.png" alt="Beaufort Ferreti">
-          </div>
-          <div class="project-body">
-            <div class="project-name">Beaufort Ferreti</div>
-            <p class="project-desc">Plataforma digital para explorar prendas, gestionar catálogos y ofrecer una experiencia de compra visual y dinámica.</p>
-            <div class="project-tags">
-              <span class="project-tag">PHP</span>
-              <span class="project-tag">MySQL</span>
-              <span class="project-tag">Bootstrap</span>
-            </div>
-            <div class="project-actions">
-              <button class="btn-view">
-                <i class="bi bi-play-fill"></i> Ver
-              </button>
-              <button class="btn-fav" data-key="ferreti">
-                <i class="bi bi-star"></i> Favorito
-              </button>
+        <div class="proj-card reveal" style="transition-delay:0.15s" data-bs-toggle="modal" data-bs-target="#M3">
+          <div class="proj-thumb"><img src="./img/Ferreti/f1.png" alt="Ferreti"></div>
+          <div class="proj-body">
+            <div class="proj-name">Beaufort Ferreti</div>
+            <p class="proj-desc">Plataforma para explorar prendas, gestionar catálogos y ofrecer una experiencia de compra visual y dinámica.</p>
+            <div class="proj-tags"><span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span><span class="proj-tag">Bootstrap</span></div>
+            <div class="proj-actions">
+              <button class="btn-view"><i class="bi bi-play-fill"></i> Ver</button>
+              <button class="btn-fav" data-key="ferreti"><i class="bi bi-star"></i> Favorito</button>
             </div>
           </div>
         </div>
 
-        <!-- Card: Recetario -->
-        <div class="project-card reveal" style="transition-delay:0.2s" data-bs-toggle="modal" data-bs-target="#Modal4">
-          <div class="project-thumb">
-            <img src="./img/Recetas/r1.png" alt="Recetario">
-          </div>
-          <div class="project-body">
-            <div class="project-name">Recetario</div>
-            <p class="project-desc">Plataforma para buscar recetas, organizar ingredientes y facilitar la preparación de platillos para una pastelera.</p>
-            <div class="project-tags">
-              <span class="project-tag">PHP</span>
-              <span class="project-tag">MySQL</span>
-              <span class="project-tag">JavaScript</span>
-            </div>
-            <div class="project-actions">
-              <button class="btn-view">
-                <i class="bi bi-play-fill"></i> Ver
-              </button>
-              <button class="btn-fav" data-key="recetario">
-                <i class="bi bi-star"></i> Favorito
-              </button>
+        <div class="proj-card reveal" style="transition-delay:0.2s" data-bs-toggle="modal" data-bs-target="#M4">
+          <div class="proj-thumb"><img src="./img/Recetas/r1.png" alt="Recetario"></div>
+          <div class="proj-body">
+            <div class="proj-name">Recetario</div>
+            <p class="proj-desc">Plataforma para buscar recetas, organizar ingredientes y facilitar la preparación de platillos de pastelería.</p>
+            <div class="proj-tags"><span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span><span class="proj-tag">JavaScript</span></div>
+            <div class="proj-actions">
+              <button class="btn-view"><i class="bi bi-play-fill"></i> Ver</button>
+              <button class="btn-fav" data-key="recetario"><i class="bi bi-star"></i> Favorito</button>
             </div>
           </div>
         </div>
 
-        <!-- Card: Spectra -->
-        <div class="project-card reveal" style="transition-delay:0.25s" data-bs-toggle="modal" data-bs-target="#Modal5">
-          <div class="project-thumb">
-            <img src="./img/Spectra/S2.png" alt="Spectra">
-          </div>
-          <div class="project-body">
-            <div class="project-name">Spectra</div>
-            <p class="project-desc">Generación automatizada de componentes web para agilizar el desarrollo, mejorar flujos y optimizar la creación de interfaces. "Proyecto realizado en equipo."</p>
-            <div class="project-tags">
-              <span class="project-tag">React</span>
-              <span class="project-tag">Laravel</span>
-              <span class="project-tag">JavaScript</span>
-            </div>
-            <div class="project-actions">
-              <button class="btn-view">
-                <i class="bi bi-play-fill"></i> Ver
-              </button>
-              <button class="btn-fav" data-key="spectra">
-                <i class="bi bi-star"></i> Favorito
-              </button>
+        <div class="proj-card reveal" style="transition-delay:0.25s" data-bs-toggle="modal" data-bs-target="#M5">
+          <div class="proj-thumb"><img src="./img/Spectra/S2.png" alt="Spectra"></div>
+          <div class="proj-body">
+            <div class="proj-name">Spectra</div>
+            <p class="proj-desc">Generación automatizada de componentes web para agilizar el desarrollo y optimizar la creación de interfaces. "Proyecto realizado en equipo."</p>
+            <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">Laravel</span><span class="proj-tag">JavaScript</span></div>
+            <div class="proj-actions">
+              <button class="btn-view"><i class="bi bi-play-fill"></i> Ver</button>
+              <button class="btn-fav" data-key="spectra"><i class="bi bi-star"></i> Favorito</button>
             </div>
           </div>
         </div>
@@ -1458,12 +813,11 @@
        MODALS
   ===================== -->
 
-  <!-- Helper: modal template via JS -->
-  <!-- Modal 6: Swoopy -->
-  <div class="modal fade" id="Modal6" tabindex="-1">
+  <!-- Swoopy -->
+  <div class="modal fade" id="M6" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <a class="modal-x" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
         <div class="modal-carousel-wrap">
           <div id="c6" class="carousel slide carousel-fade">
             <div class="carousel-inner">
@@ -1478,18 +832,18 @@
           </div>
         </div>
         <div class="modal-info">
-          <div class="modal-title-custom">Swoopy</div>
-          <p class="modal-desc">Swoopy es una aplicación tipo red social donde los usuarios pueden interactuar mediante publicaciones, comentarios, reacciones y mensajes. Integra un sistema interno llamado Orbix que impulsa la participación dentro de la plataforma, además de un marketplace enfocado en la venta de productos entre usuarios. Todo diseñado para ofrecer una experiencia rápida, intuitiva y fácil de usar.</p>
+          <div class="modal-tc">Swoopy</div>
+          <p class="modal-dc">Red social donde los usuarios interactúan mediante publicaciones, comentarios, reacciones y mensajes. Integra Orbix, un sistema de recompensas interno, y un marketplace para venta de productos entre usuarios.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 1: Velamar -->
-  <div class="modal fade" id="projectModal" tabindex="-1">
+  <!-- Velamar -->
+  <div class="modal fade" id="M1" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <a class="modal-x" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
         <div class="modal-carousel-wrap">
           <div id="c1" class="carousel slide carousel-fade">
             <div class="carousel-inner">
@@ -1507,18 +861,18 @@
           </div>
         </div>
         <div class="modal-info">
-          <div class="modal-title-custom">Departamentos Velamar</div>
-          <p class="modal-desc">Sistema web que centraliza la administración y visualización de departamentos. El usuario puede explorar cada propiedad, revisar disponibilidad, consultar precios, ver imágenes y obtener información clave. Los administradores tienen acceso a un panel para modificar datos, actualizar inventarios, gestionar calendarios y mantener todo el contenido en sincronía.</p>
+          <div class="modal-tc">Departamentos Velamar</div>
+          <p class="modal-dc">Sistema que centraliza la administración y visualización de departamentos. Los usuarios pueden explorar propiedades, revisar disponibilidad y consultar precios. Los admins gestionan datos, inventarios y calendarios desde un panel dedicado.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 2: Ayuntamiento -->
-  <div class="modal fade" id="Modal2" tabindex="-1">
+  <!-- Ayuntamiento -->
+  <div class="modal fade" id="M2" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <a class="modal-x" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
         <div class="modal-carousel-wrap">
           <div id="c2" class="carousel slide carousel-fade">
             <div class="carousel-inner">
@@ -1536,18 +890,18 @@
           </div>
         </div>
         <div class="modal-info">
-          <div class="modal-title-custom">H. Ayuntamiento</div>
-          <p class="modal-desc">Sistema desarrollado para centralizar la información del H. Ayuntamiento y mejorar el acceso a acuerdos y sesiones. Permite consultar documentos, organizar contenidos, administrar datos internos y mantener un registro claro de cada proceso. Su diseño está enfocado en transparencia, eficiencia y facilidad de uso para cualquier usuario autorizado.</p>
+          <div class="modal-tc">H. Ayuntamiento</div>
+          <p class="modal-dc">Plataforma para centralizar información del Ayuntamiento: consulta de documentos, organización de sesiones y acuerdos, y administración de datos internos con enfoque en transparencia y eficiencia.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 3: Ferreti -->
-  <div class="modal fade" id="Modal3" tabindex="-1">
+  <!-- Ferreti -->
+  <div class="modal fade" id="M3" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <a class="modal-x" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
         <div class="modal-carousel-wrap">
           <div id="c3" class="carousel slide carousel-fade">
             <div class="carousel-inner">
@@ -1560,18 +914,18 @@
           </div>
         </div>
         <div class="modal-info">
-          <div class="modal-title-custom">Beaufort Ferreti</div>
-          <p class="modal-desc">Sistema creado para centralizar la gestión de una tienda de ropa y optimizar la experiencia del cliente. Permite explorar colecciones, organizar catálogos, administrar inventarios y mantener un control claro de cada producto. Diseño enfocado en eficiencia, estética visual y facilidad de uso.</p>
+          <div class="modal-tc">Beaufort Ferreti</div>
+          <p class="modal-dc">Sistema para gestionar una tienda de ropa: exploración de colecciones, administración de catálogos e inventarios. Diseño enfocado en estética visual y facilidad de uso.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 4: Recetario -->
-  <div class="modal fade" id="Modal4" tabindex="-1">
+  <!-- Recetario -->
+  <div class="modal fade" id="M4" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <a class="modal-x" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
         <div class="modal-carousel-wrap">
           <div id="c4" class="carousel slide carousel-fade">
             <div class="carousel-inner">
@@ -1584,18 +938,18 @@
           </div>
         </div>
         <div class="modal-info">
-          <div class="modal-title-custom">Recetario</div>
-          <p class="modal-desc">Sistema creado para centralizar las recetas de mi mamá, quien es pastelera, y facilitar la organización de todos sus procesos. Permite consultar preparaciones, clasificar ingredientes, administrar notas personales y mantener un registro claro de cada creación.</p>
+          <div class="modal-tc">Recetario</div>
+          <p class="modal-dc">Sistema para centralizar las recetas de mi mamá pastelera. Permite consultar preparaciones, clasificar ingredientes, administrar notas y mantener un registro ordenado de cada creación.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal 5: Spectra -->
-  <div class="modal fade" id="Modal5" tabindex="-1">
+  <!-- Spectra -->
+  <div class="modal fade" id="M5" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <a class="modal-x" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
         <div class="modal-carousel-wrap">
           <div id="c5" class="carousel slide carousel-fade">
             <div class="carousel-inner">
@@ -1609,8 +963,8 @@
           </div>
         </div>
         <div class="modal-info">
-          <div class="modal-title-custom">Spectra</div>
-          <p class="modal-desc">Sistema desarrollado para simplificar la creación de componentes dentro de proyectos web, permitiendo generar elementos visuales y funcionales de manera rápida y organizada. Facilita seleccionar estilos, estructuras y propiedades, ofreciendo un proceso más eficiente para desarrolladores.</p>
+          <div class="modal-tc">Spectra</div>
+          <p class="modal-dc">Herramienta para simplificar la creación de componentes web: genera elementos visuales y funcionales rápidamente, permitiendo seleccionar estilos y estructuras sin escribir todo manualmente.</p>
         </div>
       </div>
     </div>
@@ -1620,35 +974,26 @@
        FOOTER
   ===================== -->
   <footer>
-    <div class="container">
-      <div class="footer-top">
+    <div class="wrap">
+      <div class="footer-grid">
 
-        <div class="footer-brand">
+        <div>
           <div class="footer-logo">Magdiel<span>.</span></div>
-          <p>Desarrollador Full Stack enfocado en crear experiencias digitales modernas y funcionales.</p>
+          <p class="footer-tagline">Desarrollador Full Stack enfocado en experiencias digitales modernas y funcionales.</p>
         </div>
 
-        <div class="footer-nav-group">
+        <div class="footer-col">
           <h6>Navegación</h6>
           <a href="#about">Acerca de mí</a>
           <a href="#experience">Experiencia</a>
           <a href="#projects">Proyectos</a>
         </div>
 
-        <div class="footer-contact-group">
-          <h6>Contacto</h6>
-          <div class="footer-contact-item">
-            <i class="bi bi-envelope"></i>
-            <span>22CG0323@itsncg.edu.mx</span>
-          </div>
-          <div class="footer-contact-item">
-            <i class="bi bi-telephone"></i>
-            <span>+52 636 103 0267</span>
-          </div>
-          <div class="footer-contact-item">
-            <i class="bi bi-geo-alt"></i>
-            <span>Nuevo Casas Grandes, Chihuahua</span>
-          </div>
+        <div>
+          <div style="font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Contacto</div>
+          <div class="fci"><i class="bi bi-envelope"></i><span>22CG0323@itsncg.edu.mx</span></div>
+          <div class="fci"><i class="bi bi-telephone"></i><span>+52 636 103 0267</span></div>
+          <div class="fci"><i class="bi bi-geo-alt"></i><span>Nuevo Casas Grandes, Chihuahua</span></div>
         </div>
 
       </div>
@@ -1656,127 +1001,62 @@
       <div class="footer-bottom">
         <span class="footer-copy">© 2025 Magdiel Dominguez. Todos los derechos reservados.</span>
         <div class="footer-socials">
-          <a href="https://github.com/MagdielD901" class="social-icon" target="_blank" title="GitHub">
-            <i class="bi bi-github"></i>
-          </a>
-          <a href="https://wa.me/526361030267" class="social-icon" target="_blank" title="WhatsApp">
-            <i class="bi bi-whatsapp"></i>
-          </a>
-          <a href="tel:+526361030267" class="social-icon" title="Llamar">
-            <i class="bi bi-telephone"></i>
-          </a>
+          <a href="https://github.com/MagdielD901" class="soc" target="_blank"><i class="bi bi-github"></i></a>
+          <a href="https://wa.me/526361030267" class="soc" target="_blank"><i class="bi bi-whatsapp"></i></a>
+          <a href="tel:+526361030267" class="soc"><i class="bi bi-telephone"></i></a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
-    // =====================
-    // MOBILE MENU
-    // =====================
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileClose = document.getElementById('mobileClose');
+    // Mobile menu
+    const hamBtn = document.getElementById('hamBtn');
+    const mobMenu = document.getElementById('mobMenu');
+    const mobClose = document.getElementById('mobClose');
+    hamBtn.addEventListener('click', () => mobMenu.classList.add('open'));
+    mobClose.addEventListener('click', () => mobMenu.classList.remove('open'));
+    mobMenu.querySelectorAll('.mob-link').forEach(a => a.addEventListener('click', () => mobMenu.classList.remove('open')));
 
-    hamburgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
-    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
+    // Scroll reveal
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-    // =====================
-    // SCROLL REVEAL
-    // =====================
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // =====================
-    // CAROUSEL LOADER
-    // =====================
-    function initCarouselLoader(carouselId, loaderId) {
-      const carouselEl = document.getElementById(carouselId);
-      const loaderEl = document.getElementById(loaderId);
-      if (!carouselEl || !loaderEl) return;
-
-      const carousel = new bootstrap.Carousel(carouselEl, { interval: false, ride: false });
-      let timer;
-
-      function startCycle() {
-        loaderEl.style.animation = 'none';
-        void loaderEl.offsetWidth;
-        loaderEl.style.animation = 'loadBarAnim 3s linear forwards';
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          carousel.next();
-          startCycle();
-        }, 3000);
+    // Carousel loaders
+    function initCarousel(cId, bId) {
+      const el = document.getElementById(cId);
+      const bar = document.getElementById(bId);
+      if (!el || !bar) return;
+      const car = new bootstrap.Carousel(el, { interval: false });
+      let t;
+      function cycle() {
+        bar.style.animation = 'none';
+        void bar.offsetWidth;
+        bar.style.animation = 'loadBarAnim 3s linear forwards';
+        clearTimeout(t);
+        t = setTimeout(() => { car.next(); cycle(); }, 3000);
       }
-
-      // Start when modal opens
-      const modalEl = carouselEl.closest('.modal');
-      modalEl.addEventListener('shown.bs.modal', () => {
-        carousel.to(0);
-        startCycle();
-      });
-      modalEl.addEventListener('hidden.bs.modal', () => {
-        clearTimeout(timer);
-        loaderEl.style.animation = 'none';
-      });
+      const modal = el.closest('.modal');
+      modal.addEventListener('shown.bs.modal', () => { car.to(0); cycle(); });
+      modal.addEventListener('hidden.bs.modal', () => { clearTimeout(t); bar.style.animation = 'none'; });
     }
+    ['c6','c1','c2','c3','c4','c5'].forEach((id, i) => initCarousel(id, 'lb' + id.slice(1)));
 
-    // Init all carousels
-    initCarouselLoader('c6', 'lb6');
-    initCarouselLoader('c1', 'lb1');
-    initCarouselLoader('c2', 'lb2');
-    initCarouselLoader('c3', 'lb3');
-    initCarouselLoader('c4', 'lb4');
-    initCarouselLoader('c5', 'lb5');
-
-    // =====================
-    // FAV BUTTONS
-    // =====================
+    // Fav buttons
     document.querySelectorAll('.btn-fav').forEach(btn => {
       const key = 'fav_' + btn.dataset.key;
-      let active = localStorage.getItem(key) === 'true';
-
-      function updateFav() {
-        const icon = btn.querySelector('i');
-        if (active) {
-          btn.classList.add('fav-active');
-          icon.classList.replace('bi-star', 'bi-star-fill');
-        } else {
-          btn.classList.remove('fav-active');
-          icon.classList.replace('bi-star-fill', 'bi-star');
-        }
+      let on = localStorage.getItem(key) === 'true';
+      function sync() {
+        const ico = btn.querySelector('i');
+        btn.classList.toggle('fav-active', on);
+        ico.className = on ? 'bi bi-star-fill' : 'bi bi-star';
       }
-      updateFav();
-
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        active = !active;
-        localStorage.setItem(key, active);
-        updateFav();
-      });
+      sync();
+      btn.addEventListener('click', e => { e.stopPropagation(); on = !on; localStorage.setItem(key, on); sync(); });
     });
   </script>
-
-  <style>
-    @keyframes loadBarAnim {
-      from { width: 0%; }
-      to { width: 100%; }
-    }
-  </style>
-
 </body>
 </html>
