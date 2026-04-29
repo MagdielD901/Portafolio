@@ -1,1837 +1,1782 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
+  <title>Magdiel Dominguez — Desarrollador Full Stack</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: "Inter", sans-serif;
-      background: #000;
-      background-image: url("https://svgshare.com/i/13Gd.svg");
-      background-size: cover;
-      background-attachment: fixed;
-      background-blend-mode: soft-light;
-      padding-top: 90px;
-
-    }
-
-    nav {
-      padding: 18px 0;
-    }
-
-    .nav-logo {
-      font-weight: 700;
-      font-size: 20px;
-      color: white;
-    }
-
-    /* === MENU REDONDEADO === */
-    .menu-rounded {
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 10px 22px;
-      border-radius: 50px;
-      backdrop-filter: blur(6px);
-    }
-
-    .nav-link {
-      color: #ccc !important;
-      font-weight: 500;
-    }
-
-    .nav-link:hover {
-      color: #fff !important;
-    }
-
-    .hero-title,
-    .hero-subtitle {
-      color: white;
-    }
-
-    p {
-      color: #ccc !important;
-    }
-
-    .badge-custom {
-      background: #fff;
-      color: #000;
-      font-size: 0.9rem;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 600;
-    }
-
-    .btn-rounded {
-      border-radius: 50px;
-      padding: 14px 28px;
-      font-size: 1rem;
-    }
-
-    .btn-outline-dark {
-      background: transparent !important;
-      color: white !important;
-      border-color: #444 !important;
-    }
-
-    .btn-outline-dark:hover {
-      background: #fff !important;
-      color: black !important;
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 999;
-      padding: 18px 0;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: rgba(0, 0, 0, 0.35);
-      /* transparente elegante */
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-
-
-    /* Ocultar iconos en celular */
-    @media (max-width: 768px) {
-      .nav-icons {
-        display: none !important;
-      }
-    }
-
-    /* Ocultar menú redondeado en celular */
-    @media (max-width: 768px) {
-      .menu-rounded {
-        display: none !important;
-      }
-    }
-
-    /* Mostrar hamburguesa solo en celular */
-    .hamburger-btn {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .hamburger-btn {
-        display: block !important;
-      }
-    }
-
-    /* Menú móvil desplegable */
-    /* Menú móvil de pantalla completa */
-    .mobile-menu {
-      position: fixed;
-      inset: 0;
-      /* top:0; left:0; right:0; bottom:0 */
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 28px;
-      z-index: 998;
-    }
-
-    .mobile-menu a {
-      color: #fff !important;
-      font-size: 1.6rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.2s ease;
-    }
-
-    .mobile-menu a:hover {
-      color: #3b82f6 !important;
-      transform: scale(1.05);
-    }
-
-
-    .mobile-menu a {
-      color: #fff !important;
-      font-weight: 500;
-      text-decoration: none;
-    }
-
-    .mobile-menu a:hover {
-      color: #3b82f6 !important;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Navbar -->
-  <nav class="container-fluid d-flex justify-content-between align-items-center">
-
-    <div class="nav-logo">Portafolio.</div>
-
-    <!-- Menú redondeado (solo desktop) -->
-    <ul class="nav gap-4 d-none d-md-flex menu-rounded">
-      <li class="nav-item"><a class="nav-link" href="#demi">Acerca de mi</a></li>
-      <li class="nav-item"><a class="nav-link" href="#ea">Experiencia </a></li>
-      <li class="nav-item"><a class="nav-link" href="#proyects">Proyectos</a></li>
-    </ul>
-
-    <!-- Íconos (solo desktop) -->
-    <div class="d-flex gap-3 nav-icons">
-      <div class="button-container">
-        <button class="btn btn-outline-dark rounded-circle">
-          <i class="bi bi-code" style="color: white;"></i>
-        </button>
-        <span class="tooltip-text">
-          <a href="#proyects" style="color: inherit; text-decoration: none;">
-            Proyectos
-          </a>
-        </span>
-      </div>
-
-      <div class="button-container">
-        <button class="btn btn-outline-dark rounded-circle">
-          <i class="bi bi-info-circle" style="color: white;"></i>
-        </button>
-        <span class="tooltip-text">
-          <a href="#footer" style="color: inherit; text-decoration: none;">
-            Información
-          </a>
-        </span>
-      </div>
-
-
-    </div>
-
-    <!-- Botón hamburguesa (solo móvil) -->
-    <button class="btn btn-outline-dark rounded-circle hamburger-btn">
-      <i class="bi bi-list" style="color: white; font-size: 26px;"></i>
-    </button>
-
-  </nav>
-
-  <!-- Menú móvil desplegable -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#demi">Acerca de mi</a>
-    <a href="#ea">Experiencia </a>
-    <a href="#proyects">Proyectos</a>
-  </div>
-
-  <script>
-    const hamburger = document.querySelector('.hamburger-btn');
-    const mobileMenu = document.getElementById('mobileMenu');
-
-    hamburger.addEventListener('click', () => {
-      mobileMenu.style.display =
-        mobileMenu.style.display === 'flex' ? 'none' : 'flex';
-    });
-  </script>
-
-
-  <!-- Hero Section -->
-  <section class="container text-center mt-5 pt-4">
-
-    <style>
-      .button-container {
-        position: relative;
-        display: inline-block;
-      }
-
-      .tooltip-text {
-        visibility: hidden;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px;
-        border-radius: 5px;
-        font-size: 12px;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .button-container:hover .tooltip-text {
-        visibility: visible;
-        opacity: 1;
-      }
-
-
-      .button-container {
-        position: relative;
-        display: inline-block;
-      }
-
-      .tooltip-text {
-        visibility: hidden;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 5px;
-        border-radius: 5px;
-        font-size: 12px;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-
-      .button-container:hover .tooltip-text {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      .badge-custom {
-        display: inline-block;
-        padding: 0.6rem 1.2rem;
-        border-radius: 999px;
-        color: white;
-        font-weight: 600;
-        background: linear-gradient(135deg, #3b82f6, #6366f1);
-        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
-      }
-    </style>
-
-    <span class="badge-custom">🔥 Jesús Magdiel Dominguez Baca</span>
-
-
-    <h1 class="hero-title mt-4">Desarrollador Full Stack
-    </h1>
-    <h1 class="hero-subtitle"></h1>
-
-    <p class="mt-4 fs-5">
-      Desarrollo aplicaciones web y móviles modernas, escalables y funcionales.<br>
-
-    </p>
-
-    <a href="#proyects" class="btn btn-light btn-rounded mt-3 px-4">
-      Proyectos <i class="bi bi-arrow-right ms-2"></i>
-    </a>
-
-
-  </section>
-
-  <section class="container py-5" id="demi">
-    <div class="row align-items-center">
-
-      <!-- Texto -->
-      <div class="col-lg-6 text-center text-lg-start">
-
-        <span class="badge px-3 py-2 mb-3 rounded-pill shadow-sm"
-          style="background-color:#3b82f6; color:white; display:inline-block;">
-          Acerca de mi
-        </span>
-
-        <h2 class="fw-bold display-5 mb-4 text-white">
-          Enfocado en diseñar experiencias <br>
-          web modernas e intuitivas
-
-        </h2>
-
-        <p class="text-secondary fs-5 mb-4">
-          Soy estudiante de Ingeniería en Sistemas Computacionales con enfoque en desarrollo Full Stack. Me especializo en crear aplicaciones web y móviles combinando interfaces modernas con lógica backend eficiente. Me interesa seguir creciendo profesionalmente y participar en proyectos reales.
-        </p>
-
-        <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-          <a href="#proyects" class="btn btn-dark rounded-pill px-4 py-2 d-flex align-items-center gap-2">
-            <i class="bi bi-code-slash"></i> Proyectos
-          </a>
-
-          <a href="./img/Documentos/CV.pdf" download="Magdiel_CV.pdf"
-            class="btn btn-light rounded-pill px-4 py-2 d-flex align-items-center gap-2"
-            style="background-color:#3b82f6; color:white; border-color:#3b82f6;">
-            <i class="bi bi-download"></i> Descargar CV
-          </a>
-
-        </div>
-      </div>
-
-      <!-- Imagen -->
-      <div class="col-lg-6 mt-4 mt-lg-0 d-flex justify-content-center">
-        <div class="bg-light" style="
-        width: 100%;
-        max-width: 420px;
-        height: 330px;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    ">
-          <img src="./img/images/website.webp" class="img-fluid" alt="placeholder">
-        </div>
-      </div>
-
-
-    </div>
-  </section>
-
-  <style>
-    /* Centrar todo en celular */
-    @media (max-width: 768px) {
-
-      /* Centra el texto */
-      .about-section {
-        text-align: center;
-      }
-
-      /* Centra los botones */
-      .about-section .d-flex {
-        justify-content: center !important;
-      }
-
-      /* Ajusta el badge al centro */
-      .about-section .badge {
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-      }
-
-      /* Centra imagen si no lo hacía ya */
-      .about-section .col-lg-6 {
-        text-align: center;
-      }
-    }
-  </style>
-
-  <section class="container py-5" id="ea">
-
-    <!-- Badge -->
-    <div class="text-center mb-3">
-      <span class="badge px-3 py-2 rounded-pill shadow-sm" style="background-color:#3b82f6; color:white;">
-        Experiencia 
-      </span>
-
-    </div>
-
-    <!-- Title -->
-    <h2 class="text-center fw-bold display-5 mb-2">
-      Mi camino en el desarrollo web
-    </h2>
-    <p class="text-center text-secondary fs-5 mb-5">
-      Un resumen de mi formación, proyectos clave y habilidades
-      prácticas que he desarrollado a lo largo de mi crecimiento como desarrollador.
-    </p>
-
-    <div class="timeline position-relative">
-
-      <!-- Vertical Line -->
-      <div class="position-absolute top-0 start-0 translate-middle-x bg-light"
-        style="width: 2px; height: 100%; left: 30px;"></div>
-
-      <!-- ITEM 1 -->
-      <div class="d-flex mb-5">
-        <!-- Dot -->
-        <div class="me-4 d-flex flex-column align-items-center">
-          <div class="rounded-circle border border-dark" style="width: 14px; height: 14px; background: #fff;">
-          </div>
-        </div>
-
-        <!-- Card -->
-        <div class="flex-grow-1 bg-white p-4 rounded-4 shadow-sm">
-
-          <h5 class="fw-bold mb-1 d-flex align-items-center gap-2">
-            <i class="bi bi-building"></i> Proyecto principal - Swoopy 
-          </h5>
-
-          <h6 class="fw-semibold mb-2">Desarrollador Full-Stack</h6>
-
-          <p class="text-secondary mb-3 d-flex align-items-center gap-2">
-            <i class="bi bi-calendar"></i>En desarrollo
-          </p>
-
-          <p class="text-secondary mb-3">
-            <ul>
-            <li>Aplicación con sistema de usuarios, feed e interacción </li>
-            <li>Módulo marketplace integrado </li>
-            <li>Backend con Laravel y base de datos relacional</li>
-            <li>Frontend con y React Native </li>
-            <li>Comunicación mediante APIs </li>
-            </ul>
-          </p>
-
-          <!-- Tags -->
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark px-3 py-2">React Native</span>
-            <span class="badge bg-light text-dark px-3 py-2">TypeScript</span>
-            <span class="badge bg-light text-dark px-3 py-2">MySQL</span>
-            <span class="badge bg-light text-dark px-3 py-2">Laravel</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ITEM 2 -->
-      <div class="d-flex mb-5">
-        <!-- Dot -->
-        <div class="me-4 d-flex flex-column align-items-center">
-          <div class="rounded-circle border border-dark" style="width: 14px; height: 14px; background: #fff;">
-          </div>
-        </div>
-
-        <!-- Card -->
-        <div class="flex-grow-1 bg-white p-4 rounded-4 shadow-sm">
-
-          <h5 class="fw-bold mb-1 d-flex align-items-center gap-2">
-            <i class="bi bi-building"></i> Proyectos Universitarios y Personales
-          </h5>
-
-          <h6 class="fw-semibold mb-2">Desarrollador Full-Stack</h6>
-
-          <p class="text-secondary mb-3 d-flex align-items-center gap-2">
-            <i class="bi bi-calendar"></i>En formación
-          </p>
-
-          <p class="text-secondary mb-3">
-            He construido aplicaciones web completas para proyectos escolares y personales,
-            incluyendo dashboards, sliders de departamentos, filtros avanzados, integración
-            de APIs, React components, y sistemas interactivos.
-            Me enfoco en crear interfaces limpias,
-            funcionales y responsivas, conectadas con backends bien estructurados.
-          </p>
-
-          <!-- Tags -->
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark px-3 py-2">React</span>
-            <span class="badge bg-light text-dark px-3 py-2">HTML</span>
-            <span class="badge bg-light text-dark px-3 py-2">CSS</span>
-            <span class="badge bg-light text-dark px-3 py-2">JavaScript</span>
-            <span class="badge bg-light text-dark px-3 py-2">Node.js</span>
-            <span class="badge bg-light text-dark px-3 py-2">MySQL</span>
-            <span class="badge bg-light text-dark px-3 py-2">PHP</span>
-            <span class="badge bg-light text-dark px-3 py-2">Laravel</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ITEM 3 -->
-      <div class="d-flex mb-5">
-        <!-- Dot -->
-        <div class="me-4 d-flex flex-column align-items-center">
-          <div class="rounded-circle border border-dark" style="width: 14px; height: 14px; background: #fff;">
-          </div>
-        </div>
-
-        <!-- Card -->
-        <div class="flex-grow-1 bg-white p-4 rounded-4 shadow-sm">
-
-          <h5 class="fw-bold mb-1 d-flex align-items-center gap-2">
-            <i class="bi bi-building"></i>Proyectos y Colaboraciones
-          </h5>
-
-          <h6 class="fw-semibold mb-2">Desarrollador Web</h6>
-
-          <p class="text-secondary mb-3 d-flex align-items-center gap-2">
-            <i class="bi bi-calendar"></i> 2022 – 2024
-          </p>
-
-          <p class="text-secondary mb-3">
-            He desarrollado pequeños proyectos y colaboraciones que incluyen landing pages,
-            optimización visual, animaciones ligeras, integración de menús,
-            personalización de estilos y apoyo tanto en proyectos familiares como personales.
-          </p>
-
-          <!-- Tags -->
-          <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark px-3 py-2">JavaScript</span>
-            <span class="badge bg-light text-dark px-3 py-2">HTML</span>
-            <span class="badge bg-light text-dark px-3 py-2">CSS</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!--Graficas-->
-  <section class="container py-5">
-  <div class="text-center">
-    <span class="badge px-3 py-2 rounded-pill shadow-sm" style="background-color:#3b82f6; color:white;">
-      Habilidades Técnicas
-    </span>
-  </div> 
-  <br>
-
-  <div class="mag-skill-wrapper">
-    <div class="mag-skill-box">React</div>
-    <div class="mag-skill-box">React Native</div>
-    <div class="mag-skill-box">Laravel</div>
-    <div class="mag-skill-box">HTML</div>
-    <div class="mag-skill-box">CSS</div>
-    <div class="mag-skill-box">JavaScript</div>
-    <div class="mag-skill-box">TypeScript</div>
-  </div>
-
-  <style>
-    .mag-skill-wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 25px;
-      border-radius: 15px;
-      background: #f8f9fa;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-wrap: wrap; /* Para que se acomoden en filas si son muchos */
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .mag-skill-box {
-      padding: 8px 20px;
-      background-color: white;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #333;
-      transition: all 0.3s ease;
-      cursor: default;
-    }
-
-    .mag-skill-box:hover {
-      background-color: #3b82f6;
-      color: white;
-      border-color: #3b82f6;
-      transform: translateY(-2px);
-    }
-  </style>
-</section>
-
-  <!--idiomas-->
-  <section class="container py-5">
-  <div class="text-center">
-    <span class="badge px-3 py-2 rounded-pill shadow-sm" style="background-color:#3b82f6; color:white;">
-      Idiomas
-    </span>
-  </div> 
-  <br>
-
-  <div class="mag-skill-wrapper">
-    <div class="mag-skill-box">
-      <span class="mag-skill-title">Español Nativo</span>
-    </div>
-
-    <div class="mag-skill-box">
-      <span class="mag-skill-title">Inglés B1</span>
-    </div>
-  </div>
-
-  <style>
-    .mag-skill-wrapper {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border-radius: 12px;
-      background: #f8f9fa;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .mag-skill-box {
-      width: 100%;
-      padding: 12px;
-      background: white;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-
-    .mag-skill-box:hover {
-      border-color: #3b82f6;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.1);
-    }
-
-    .mag-skill-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #333;
-    }
-  </style>
-</section>
-
-
-
-
-
-
-
-  <!-- Featured Work -->
-  <section class="container py-5" id="proyects">
-    <div class="text-center mb-5">
-      <span class="badge px-3 py-2 rounded-pill" style="background-color:#3b82f6; color:white;">
-        Proyectos
-      </span>
-      <h2  class="text-center fw-bold display-5 mb-2">Trabajo Destacado</h2>
-      <p class="text-center text-secondary fs-5 mb-5">Presentación de algunos de mis mejores proyectos y logros alcanzados.</p>
-    </div>
-
-    <div class="row g-4">
-
-      <!-- Project Card 6 -->
-      <div class="col-md-4">
-        <div class="project-card p-0 rounded-4 overflow-hidden">
-
-          <div class="project-image bg-light d-flex justify-content-center align-items-center"
-            style="height:260px; cursor:pointer; overflow:hidden; border-radius:16px; padding:10px;"
-            data-bs-toggle="modal" data-bs-target="#Modal6">
-            <img src="./img/Swoopy/1.png" alt="Project Image"
-              style="height:100%; width:100%; object-fit:cover; border-radius:12px;">
-          </div>
-
-          <div class="p-4 d-flex flex-column flex-grow-1">
-            <h4 class="fw-semibold">Swoopy</h4>
-
-            <p class="text-muted project-desc">
-              Plataforma tipo red social que permite la interacción entre usuarios mediante publicaciones, comentarios y reacciones, integrando un sistema interno de recompensas (Orbix) y un módulo de marketplace para la publicación de productos.
-            </p>
-
-            <div class="mb-3">
-              <span class="badge bg-light text-dark me-1">React Native</span>
-              <span class="badge bg-light text-dark me-1">Laravel</span>
-              <span class="badge bg-light text-dark me-1">MySQL</span>
-            </div>
-
-            <div class="d-flex gap-3 mt-auto">
-              <a class="btn btn-dark rounded-pill px-4" style="background-color:#3b82f6; border-color:#3b82f6;"
-                data-bs-toggle="modal" data-bs-target="#Modal6">
-                <i class="bi bi-play-fill me-1"></i> ver
-              </a>
-
-              <a id="fav-btn" href="#" class="btn btn-outline-dark rounded-pill px-4">
-                <i class="bi bi-star" id="fav-icon"></i> Favorito
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Project Card 1 -->
-      <div class="col-md-4">
-        <div class="project-card p-0 rounded-4 overflow-hidden">
-
-          <div class="project-image bg-light d-flex justify-content-center align-items-center"
-            style="height:260px; cursor:pointer; overflow:hidden; border-radius:16px; padding:10px;"
-            data-bs-toggle="modal" data-bs-target="#projectModal">
-            <img src="./img/velamar/velamar1.png" alt="Project Image"
-              style="height:100%; width:100%; object-fit:cover; border-radius:12px;">
-          </div>
-
-          <div class="p-4 d-flex flex-column flex-grow-1">
-            <h4 class="fw-semibold">Departamentos velamar</h4>
-
-            <p class="text-muted project-desc">
-              Sitio web dinámico que permite explorar departamentos, verificar disponibilidad y gestionar datos mediante
-              un panel administrativo.
-            </p>
-
-            <div class="mb-3">
-              <span class="badge bg-light text-dark me-1">HTML</span>
-              <span class="badge bg-light text-dark me-1">CSS</span>
-              <span class="badge bg-light text-dark me-1">Bootstrap</span>
-              <span class="badge bg-light text-dark me-1">PHP</span>
-              <span class="badge bg-light text-dark me-1">MySQL</span>
-            </div>
-
-            <div class="d-flex gap-3 mt-auto">
-              <a class="btn btn-dark rounded-pill px-4" style="background-color:#3b82f6; border-color:#3b82f6;"
-                data-bs-toggle="modal" data-bs-target="#projectModal">
-                <i class="bi bi-play-fill me-1"></i> ver
-              </a>
-
-              <a id="fav-btn" href="#" class="btn btn-outline-dark rounded-pill px-4">
-                <i class="bi bi-star" id="fav-icon"></i> Favorito
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Project Card 2 -->
-      <div class="col-md-4">
-        <div class="project-card p-0 rounded-4 overflow-hidden">
-
-          <div class="project-image bg-light d-flex justify-content-center align-items-center"
-            style="height:260px; cursor:pointer; overflow:hidden; border-radius:16px; padding:10px;"
-            data-bs-toggle="modal" data-bs-target="#Modal2">
-            <img src="./img/Ayuntamiento/a1.png" alt="Project Image"
-              style="height:100%; width:100%; object-fit:cover; border-radius:12px;">
-          </div>
-
-          <div class="p-4 d-flex flex-column flex-grow-1">
-            <h4 class="fw-semibold">H. Ayuntamiento</h4>
-
-            <p class="text-muted project-desc">
-              Diseño de Plataforma digital para consultar acuerdos, organizar sesiones y facilitar la gestión interna
-              del Ayuntamiento.
-            </p>
-
-            <div class="mb-3">
-              <span class="badge bg-light text-dark me-1">HTML</span>
-              <span class="badge bg-light text-dark me-1">CSS</span>
-              <span class="badge bg-light text-dark me-1">Bootstrap</span>
-            </div>
-
-            <div class="d-flex gap-3 mt-auto">
-              <a class="btn btn-dark rounded-pill px-4" style="background-color:#3b82f6; border-color:#3b82f6;"
-                data-bs-toggle="modal" data-bs-target="#Modal2">
-                <i class="bi bi-play-fill me-1"></i> ver
-              </a>
-
-              <a id="fav-btn" href="#" class="btn btn-outline-dark rounded-pill px-4">
-                <i class="bi bi-star" id="fav-icon"></i> Favorito
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Project Card 3 -->
-      <div class="col-md-4">
-        <div class="project-card p-0 rounded-4 overflow-hidden">
-
-          <div class="project-image bg-light d-flex justify-content-center align-items-center"
-            style="height:260px; cursor:pointer; overflow:hidden; border-radius:16px; padding:10px;"
-            data-bs-toggle="modal" data-bs-target="#Modal3">
-            <img src="./img/Ferreti/f1.png" alt="Project Image"
-              style="height:100%; width:100%; object-fit:cover; border-radius:12px;">
-          </div>
-
-          <div class="p-4 d-flex flex-column flex-grow-1">
-            <h4 class="fw-semibold">Beaufort Ferreti</h4>
-
-            <p class="text-muted project-desc">
-              Diseño de plataforma digital para explorar prendas, gestionar catálogos y ofrecer una experiencia de
-              compra visual y dinámica.
-            </p>
-
-            <div class="mb-3">
-              <span class="badge bg-light text-dark me-1">HTML</span>
-              <span class="badge bg-light text-dark me-1">CSS</span>
-              <span class="badge bg-light text-dark me-1">Bootstrap</span>
-              <span class="badge bg-light text-dark me-1">PHP</span>
-              <span class="badge bg-light text-dark me-1">MySQL</span>
-            </div>
-
-            <div class="d-flex gap-3 mt-auto">
-              <a class="btn btn-dark rounded-pill px-4" style="background-color:#3b82f6; border-color:#3b82f6;"
-                data-bs-toggle="modal" data-bs-target="#Modal3">
-                <i class="bi bi-play-fill me-1"></i> ver
-              </a>
-
-              <a id="fav-btn" href="#" class="btn btn-outline-dark rounded-pill px-4">
-                <i class="bi bi-star" id="fav-icon"></i> Favorito
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Project Card 4 -->
-      <div class="col-md-4">
-        <div class="project-card p-0 rounded-4 overflow-hidden">
-
-          <div class="project-image bg-light d-flex justify-content-center align-items-center"
-            style="height:260px; cursor:pointer; overflow:hidden; border-radius:16px; padding:10px;"
-            data-bs-toggle="modal" data-bs-target="#Modal4">
-            <img src="./img/Recetas/r1.png" alt="Project Image"
-              style="height:100%; width:100%; object-fit:cover; border-radius:12px;">
-          </div>
-
-          <div class="p-4 d-flex flex-column flex-grow-1">
-            <h4 class="fw-semibold">Recetario</h4>
-
-            <p class="text-muted project-desc">
-              Diseño de plataforma digital para buscar recetas, organizar ingredientes y facilitar la preparación de
-              platillos.
-            </p>
-
-            <div class="mb-3">
-              <span class="badge bg-light text-dark me-1">HTML</span>
-              <span class="badge bg-light text-dark me-1">CSS</span>
-              <span class="badge bg-light text-dark me-1">Bootstrap</span>
-              <span class="badge bg-light text-dark me-1">MySQL</span>
-              <span class="badge bg-light text-dark me-1">JavaScript</span>
-              <span class="badge bg-light text-dark me-1">PHP</span>
-            </div>
-
-            <div class="d-flex gap-3 mt-auto">
-              <a class="btn btn-dark rounded-pill px-4" style="background-color:#3b82f6; border-color:#3b82f6;"
-                data-bs-toggle="modal" data-bs-target="#Modal4">
-                <i class="bi bi-play-fill me-1"></i> ver
-              </a>
-
-              <a id="fav-btn" href="#" class="btn btn-outline-dark rounded-pill px-4">
-                <i class="bi bi-star" id="fav-icon"></i> Favorito
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Project Card 5 -->
-      <div class="col-md-4">
-        <div class="project-card p-0 rounded-4 overflow-hidden">
-
-          <div class="project-image bg-light d-flex justify-content-center align-items-center"
-            style="height:260px; cursor:pointer; overflow:hidden; border-radius:16px; padding:10px;"
-            data-bs-toggle="modal" data-bs-target="#Modal5">
-            <img src="./img/Spectra/S2.png" alt="Project Image"
-              style="height:100%; width:100%; object-fit:cover; border-radius:12px;">
-          </div>
-
-          <div class="p-4 d-flex flex-column flex-grow-1">
-            <h4 class="fw-semibold">Spectra</h4>
-
-            <p class="text-muted project-desc">
-              Generación automatizada de componentes web para agilizar el desarrollo, mejorar flujos y optimizar la
-              creación de interfaces. </p>
-
-            <div class="mb-3">
-              <span class="badge bg-light text-dark me-1">React</span>
-              <span class="badge bg-light text-dark me-1">Laravel</span>
-              <span class="badge bg-light text-dark me-1">CSS</span>
-              <span class="badge bg-light text-dark me-1">Bootstrap</span>
-              <span class="badge bg-light text-dark me-1">MySQL</span>
-              <span class="badge bg-light text-dark me-1">JavaScript</span>
-            </div>
-
-            <div class="d-flex gap-3 mt-auto">
-              <a class="btn btn-dark rounded-pill px-4" style="background-color:#3b82f6; border-color:#3b82f6;"
-                data-bs-toggle="modal" data-bs-target="#Modal5">
-                <i class="bi bi-play-fill me-1"></i> ver
-              </a>
-
-              <a id="fav-btn" href="#" class="btn btn-outline-dark rounded-pill px-4">
-                <i class="bi bi-star" id="fav-icon"></i> Favorito
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
-
-
-      <!-- CSS GLOBAL -->
-      <style>
-        .project-card {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .project-desc {
-          min-height: 65px;
-        }
-
-        .fav-active {
-          background-color: #ffbb00 !important;
-          color: #000 !important;
-          border-color: #f4c542 !important;
-        }
-      </style>
-
-
-
-
-    </div> <!-- Fin de la fila de proyectos -->
-
-    <!-- =============================== -->
-    <!-- MODALES (ahora al final) -->
-    <!-- =============================== -->
-     <!-- =============================== -->
-    <!-- MODAL 6 -->
-    <!-- =============================== -->
-    <div class="modal fade" id="Modal6" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 shadow-lg" style="overflow:hidden;">
-          <!-- Carrusel con fade -->
-          <div class="carousel-wrapper"
-            style="position: relative; padding: 20px; background: #f5f5f7; border-radius: 20px;">
-            <div id="carouselProject6" class="carousel slide carousel-fade" data-bs-ride="false"
-              style="position: relative;">
-              <div class="carousel-inner rounded-4" style="overflow: hidden;">
-                <div class="carousel-item active">
-                  <img src="./img/Swoopy/1.png" class="d-block w-100" alt="img1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Swoopy/2.png" class="d-block w-100" alt="img2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Swoopy/3.png" class="d-block w-100" alt="img3">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Swoopy/4.png" class="d-block w-100" alt="img4">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Swoopy/5.png" class="d-block w-100" alt="img5">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Swoopy/6.png" class="d-block w-100" alt="img6">
-                </div>
-              </div>
-
-              <!-- Fondo píldora -->
-              <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                      width: 130px; height: 10px; background: #000; border-radius: 20px; z-index: 5;">
-              </div>
-
-              <!-- Contenedor del loader -->
-              <div class="carousel-loader" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-               width: 120px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 20px;
-               overflow: hidden; z-index: 10;">
-                <div id="loaderBar6" class="loader-bar"></div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            /* Animación del loader */
-            @keyframes loadBar {
-              from {
-                width: 0%;
-              }
-
-              to {
-                width: 100%;
-              }
-            }
-
-            /* barra reseteable */
-            .loader-bar {
-              height: 100%;
-              width: 0%;
-              background: #ffffff;
-              border-radius: 20px;
-            }
-          </style>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const carousel = new bootstrap.Carousel('#carouselProject6', {
-                interval: false,
-                ride: false,
-                pause: false
-              });
-
-              const loader = document.getElementById("loaderBar6");
-
-              function startLoader() {
-                // Reiniciar animación del loader reseteando el elemento
-                loader.style.animation = "none";
-                void loader.offsetWidth; // fuerza el reflow
-                loader.style.animation = "loadBar 3s linear forwards";
-
-                // Cambiar imagen exactamente al terminar el loader
-                setTimeout(() => {
-                  carousel.next();
-                  startLoader();
-                }, 3000);
-              }
-
-              // Iniciar ciclo
-              startLoader();
-            });
-          </script>
-
-          <!-- Descripción -->
-          <div class="p-4">
-            <h4 class="fw-semibold mb-2">Swoopy</h4>
-            <p class="text-muted mb-0">
-               Swoopy es una aplicación tipo red social donde los usuarios 
-             pueden interactuar mediante publicaciones, comentarios, reacciones 
-             y mensajes. Integra un sistema interno llamado Orbix que impulsa 
-             la participación dentro de la plataforma, además de un marketplace 
-             enfocado en la venta de productos entre usuarios. Todo está diseñado 
-             para ofrecer una experiencia rápida, intuitiva y fácil de usar.
-
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- =============================== -->
-    <!-- MODAL 1 -->
-    <!-- =============================== -->
-    <div class="modal fade" id="projectModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 shadow-lg" style="overflow:hidden;">
-
-          <!-- Carrusel con fade -->
-          <div class="carousel-wrapper"
-            style="position: relative; padding: 20px; background: #f5f5f7; border-radius: 20px;">
-            <div id="carouselProject" class="carousel slide carousel-fade" data-bs-ride="false"
-              style="position: relative;">
-              <div class="carousel-inner rounded-4" style="overflow: hidden;">
-                <div class="carousel-item active">
-                  <img src="./img/velamar/velamar1.png" class="d-block w-100" alt="img1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/velamar/velamar2.png" class="d-block w-100" alt="img2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/velamar/velamar3.png" class="d-block w-100" alt="img3">
-                </div>
-                  <div class="carousel-item">
-                  <img src="./img/velamar/velamar4.png" class="d-block w-100" alt="img4">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/velamar/velamar5.png" class="d-block w-100" alt="img5">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/velamar/velamar6.png" class="d-block w-100" alt="img6">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/velamar/velamar7.png" class="d-block w-100" alt="img7">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/velamar/velamar8.png" class="d-block w-100" alt="img8">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/velamar/velamar9.png" class="d-block w-100" alt="img9">
-                </div>
-              </div>
-
-              <!-- Fondo píldora -->
-              <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                      width: 130px; height: 10px; background: #000; border-radius: 20px; z-index: 5;">
-              </div>
-
-              <!-- Contenedor del loader -->
-              <div class="carousel-loader" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-               width: 120px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 20px;
-               overflow: hidden; z-index: 10;">
-                <div id="loaderBar" class="loader-bar"></div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            /* Animación del loader */
-            @keyframes loadBar {
-              from {
-                width: 0%;
-              }
-
-              to {
-                width: 100%;
-              }
-            }
-
-            /* barra reseteable */
-            .loader-bar {
-              height: 100%;
-              width: 0%;
-              background: #ffffff;
-              border-radius: 20px;
-            }
-          </style>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const carousel = new bootstrap.Carousel('#carouselProject', {
-                interval: false,
-                ride: false,
-                pause: false
-              });
-
-              const loader = document.getElementById("loaderBar");
-
-              function startLoader() {
-                // Reiniciar animación del loader reseteando el elemento
-                loader.style.animation = "none";
-                void loader.offsetWidth; // fuerza el reflow
-                loader.style.animation = "loadBar 3s linear forwards";
-
-                // Cambiar imagen exactamente al terminar el loader
-                setTimeout(() => {
-                  carousel.next();
-                  startLoader();
-                }, 3000);
-              }
-
-              // Iniciar ciclo
-              startLoader();
-            });
-          </script>
-
-          <!-- Descripción -->
-          <div class="p-4">
-            <h4 class="fw-semibold mb-2">Departamentos velamar</h4>
-            <p class="text-muted mb-0">
-              Este proyecto consiste en un sistema web que centraliza la administración y visualización de
-              departamentos. El usuario puede explorar cada propiedad, revisar disponibilidad, consultar precios, ver
-              imágenes y obtener información clave antes de tomar una decisión. Por otro lado, los administradores
-              tienen acceso a un panel donde pueden modificar datos, actualizar inventarios, gestionar calendarios y
-              mantener todo el contenido en sincronía. La arquitectura está desarrollada con herramientas modernas para
-              lograr un rendimiento óptimo y una experiencia responsiva.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- =============================== -->
-    <!-- MODAL 2 -->
-    <!-- =============================== -->
-    <div class="modal fade" id="Modal2" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 shadow-lg" style="overflow:hidden;">
-          <!-- Carrusel con fade -->
-          <div class="carousel-wrapper"
-            style="position: relative; padding: 20px; background: #f5f5f7; border-radius: 20px;">
-            <div id="carouselProject2" class="carousel slide carousel-fade" data-bs-ride="false"
-              style="position: relative;">
-              <div class="carousel-inner rounded-4" style="overflow: hidden;">
-                <div class="carousel-item active">
-                  <img src="./img/Ayuntamiento/a1.png" class="d-block w-100" alt="img1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a2.png" class="d-block w-100" alt="img2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a3.png" class="d-block w-100" alt="img3">
-                </div>
-                  <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a4.png" class="d-block w-100" alt="img4">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a5.png" class="d-block w-100" alt="img5">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a6.png" class="d-block w-100" alt="img6">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a7.png" class="d-block w-100" alt="img7">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a8.png" class="d-block w-100" alt="img8">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Ayuntamiento/a9.png" class="d-block w-100" alt="img9">
-                </div>
-              </div>
-
-              <!-- Fondo píldora -->
-              <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                      width: 130px; height: 10px; background: #000; border-radius: 20px; z-index: 5;">
-              </div>
-
-              <!-- Contenedor del loader -->
-              <div class="carousel-loader" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-               width: 120px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 20px;
-               overflow: hidden; z-index: 10;">
-                <div id="loaderBar2" class="loader-bar"></div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            /* Animación del loader */
-            @keyframes loadBar {
-              from {
-                width: 0%;
-              }
-
-              to {
-                width: 100%;
-              }
-            }
-
-            /* barra reseteable */
-            .loader-bar {
-              height: 100%;
-              width: 0%;
-              background: #ffffff;
-              border-radius: 20px;
-            }
-          </style>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const carousel = new bootstrap.Carousel('#carouselProject2', {
-                interval: false,
-                ride: false,
-                pause: false
-              });
-
-              const loader = document.getElementById("loaderBar2");
-
-              function startLoader() {
-                // Reiniciar animación del loader reseteando el elemento
-                loader.style.animation = "none";
-                void loader.offsetWidth; // fuerza el reflow
-                loader.style.animation = "loadBar 3s linear forwards";
-
-                // Cambiar imagen exactamente al terminar el loader
-                setTimeout(() => {
-                  carousel.next();
-                  startLoader();
-                }, 3000);
-              }
-
-              // Iniciar ciclo
-              startLoader();
-            });
-          </script>
-
-          <!-- Descripción -->
-          <div class="p-4">
-            <h4 class="fw-semibold mb-2">H. Ayuntamiento</h4>
-            <p class="text-muted mb-0">
-              Este sistema fue desarrollado para centralizar la información del H. Ayuntamiento y mejorar el acceso a
-              los acuerdos y sesiones. Permite consultar documentos, organizar contenidos, administrar datos internos y
-              mantener un registro claro de cada proceso. Su diseño está enfocado en la transparencia, la eficiencia y
-              la facilidad de uso para cualquier usuario autorizado.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- =============================== -->
-    <!-- MODAL 3 -->
-    <!-- =============================== -->
-    <div class="modal fade" id="Modal3" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 shadow-lg" style="overflow:hidden;">
-          <!-- Carrusel con fade -->
-          <div class="carousel-wrapper"
-            style="position: relative; padding: 20px; background: #f5f5f7; border-radius: 20px;">
-            <div id="carouselProject3" class="carousel slide carousel-fade" data-bs-ride="false"
-              style="position: relative;">
-              <div class="carousel-inner rounded-4" style="overflow: hidden;">
-                <div class="carousel-item active">
-                  <img src="./img/Ferreti/f1.png" class="d-block w-100" alt="img1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Ferreti/f2.png" class="d-block w-100" alt="img2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Ferreti/f3.png" class="d-block w-100" alt="img3">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Ferreti/f4.png" class="d-block w-100" alt="img4">
-                </div>
-              </div>
-
-              <!-- Fondo píldora -->
-              <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                      width: 130px; height: 10px; background: #000; border-radius: 20px; z-index: 5;">
-              </div>
-
-              <!-- Contenedor del loader -->
-              <div class="carousel-loader" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-               width: 120px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 20px;
-               overflow: hidden; z-index: 10;">
-                <div id="loaderBar3" class="loader-bar"></div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            /* Animación del loader */
-            @keyframes loadBar {
-              from {
-                width: 0%;
-              }
-
-              to {
-                width: 100%;
-              }
-            }
-
-            /* barra reseteable */
-            .loader-bar {
-              height: 100%;
-              width: 0%;
-              background: #ffffff;
-              border-radius: 20px;
-            }
-          </style>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const carousel = new bootstrap.Carousel('#carouselProject3', {
-                interval: false,
-                ride: false,
-                pause: false
-              });
-
-              const loader = document.getElementById("loaderBar3");
-
-              function startLoader() {
-                // Reiniciar animación del loader reseteando el elemento
-                loader.style.animation = "none";
-                void loader.offsetWidth; // fuerza el reflow
-                loader.style.animation = "loadBar 3s linear forwards";
-
-                // Cambiar imagen exactamente al terminar el loader
-                setTimeout(() => {
-                  carousel.next();
-                  startLoader();
-                }, 3000);
-              }
-
-              // Iniciar ciclo
-              startLoader();
-            });
-          </script>
-
-          <!-- Descripción -->
-          <div class="p-4">
-            <h4 class="fw-semibold mb-2">Beaufort Ferreti</h4>
-            <p class="text-muted mb-0">
-              Este sistema fue creado para centralizar la gestión de una tienda de ropa y optimizar la experiencia del
-              cliente. Permite explorar colecciones, organizar catálogos, administrar inventarios y mantener un control
-              claro de cada producto. Su diseño está enfocado en la eficiencia, la estética visual y la facilidad de uso
-              para cualquier usuario que visite la plataforma. </p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-    <!-- =============================== -->
-    <!-- MODAL 4 -->
-    <!-- =============================== -->
-    <div class="modal fade" id="Modal4" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 shadow-lg" style="overflow:hidden;">
-          <!-- Carrusel con fade -->
-          <div class="carousel-wrapper"
-            style="position: relative; padding: 20px; background: #f5f5f7; border-radius: 20px;">
-            <div id="carouselProject4" class="carousel slide carousel-fade" data-bs-ride="false"
-              style="position: relative;">
-              <div class="carousel-inner rounded-4" style="overflow: hidden;">
-                <div class="carousel-item active">
-                  <img src="./img/Recetas/r1.png" class="d-block w-100" alt="img1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Recetas/r2.png" class="d-block w-100" alt="img2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Recetas/r3.png" class="d-block w-100" alt="img3">
-                </div>
-                 <div class="carousel-item">
-                  <img src="./img/Recetas/r4.png" class="d-block w-100" alt="img4">
-                </div>
-              </div>
-
-              <!-- Fondo píldora -->
-              <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                      width: 130px; height: 10px; background: #000; border-radius: 20px; z-index: 5;">
-              </div>
-
-              <!-- Contenedor del loader -->
-              <div class="carousel-loader" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-               width: 120px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 20px;
-               overflow: hidden; z-index: 10;">
-                <div id="loaderBar4" class="loader-bar"></div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            /* Animación del loader */
-            @keyframes loadBar {
-              from {
-                width: 0%;
-              }
-
-              to {
-                width: 100%;
-              }
-            }
-
-            /* barra reseteable */
-            .loader-bar {
-              height: 100%;
-              width: 0%;
-              background: #ffffff;
-              border-radius: 20px;
-            }
-          </style>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const carousel = new bootstrap.Carousel('#carouselProject4', {
-                interval: false,
-                ride: false,
-                pause: false
-              });
-
-              const loader = document.getElementById("loaderBar4");
-
-              function startLoader() {
-                // Reiniciar animación del loader reseteando el elemento
-                loader.style.animation = "none";
-                void loader.offsetWidth; // fuerza el reflow
-                loader.style.animation = "loadBar 3s linear forwards";
-
-                // Cambiar imagen exactamente al terminar el loader
-                setTimeout(() => {
-                  carousel.next();
-                  startLoader();
-                }, 3000);
-              }
-
-              // Iniciar ciclo
-              startLoader();
-            });
-          </script>
-
-          <!-- Descripción -->
-          <div class="p-4">
-            <h4 class="fw-semibold mb-2">Recetario</h4>
-            <p class="text-muted mb-0">
-              Este sistema fue creado para centralizar las recetas de mi mamá, quien es pastelera, y facilitar la
-              organización de todos sus procesos. Permite consultar preparaciones, clasificar ingredientes, administrar
-              notas personales y mantener un registro claro de cada creación. Su diseño está enfocado en la eficiencia,
-              la practicidad y la facilidad de uso para que pueda gestionar sus recetas de manera rápida y ordenada.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- =============================== -->
-    <!-- MODAL 5 -->
-    <!-- =============================== -->
-    <div class="modal fade" id="Modal5" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 shadow-lg" style="overflow:hidden;">
-          <!-- Carrusel con fade -->
-          <div class="carousel-wrapper"
-            style="position: relative; padding: 20px; background: #f5f5f7; border-radius: 20px;">
-            <div id="carouselProject5" class="carousel slide carousel-fade" data-bs-ride="false"
-              style="position: relative;">
-              <div class="carousel-inner rounded-4" style="overflow: hidden;">
-                <div class="carousel-item active">
-                  <img src="./img/Spectra/S1.png" class="d-block w-100" alt="img1">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Spectra/S2.png" class="d-block w-100" alt="img2">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Spectra/S3.png" class="d-block w-100" alt="img3">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Spectra/S4.png" class="d-block w-100" alt="img4">
-                </div>
-                <div class="carousel-item">
-                  <img src="./img/Spectra/S5.png" class="d-block w-100" alt="img5">
-                </div>
-              </div>
-
-              <!-- Fondo píldora -->
-              <div style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                      width: 130px; height: 10px; background: #000; border-radius: 20px; z-index: 5;">
-              </div>
-
-              <!-- Contenedor del loader -->
-              <div class="carousel-loader" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
-               width: 120px; height: 6px; background: rgba(255,255,255,0.3); border-radius: 20px;
-               overflow: hidden; z-index: 10;">
-                <div id="loaderBar5" class="loader-bar"></div>
-              </div>
-            </div>
-          </div>
-
-          <style>
-            /* Animación del loader */
-            @keyframes loadBar {
-              from {
-                width: 0%;
-              }
-
-              to {
-                width: 100%;
-              }
-            }
-
-            /* barra reseteable */
-            .loader-bar {
-              height: 100%;
-              width: 0%;
-              background: #ffffff;
-              border-radius: 20px;
-            }
-          </style>
-
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const carousel = new bootstrap.Carousel('#carouselProject5', {
-                interval: false,
-                ride: false,
-                pause: false
-              });
-
-              const loader = document.getElementById("loaderBar5");
-
-              function startLoader() {
-                // Reiniciar animación del loader reseteando el elemento
-                loader.style.animation = "none";
-                void loader.offsetWidth; // fuerza el reflow
-                loader.style.animation = "loadBar 3s linear forwards";
-
-                // Cambiar imagen exactamente al terminar el loader
-                setTimeout(() => {
-                  carousel.next();
-                  startLoader();
-                }, 3000);
-              }
-
-              // Iniciar ciclo
-              startLoader();
-            });
-          </script>
-
-          <!-- Descripción -->
-          <div class="p-4">
-            <h4 class="fw-semibold mb-2">Spectra</h4>
-            <p class="text-muted mb-0">
-              Este sistema fue desarrollado para simplificar la creación de componentes
-              dentro de proyectos web, permitiendo generar elementos visuales y
-              funcionales de manera rápida y organizada. Facilita seleccionar estilos,
-              estructuras y propiedades sin necesidad de escribir cada parte manualmente,
-              ofreciendo un proceso más eficiente para desarrolladores. Su enfoque está
-              en la productividad, la claridad y la flexibilidad, brindando una
-              herramienta que ayuda a construir interfaces completas de forma
-              práctica, ordenada y adaptable a cualquier necesidad.</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    
-
-
-  </section>
-
-
-
-
-  <style>
-    .btn-outline-dark {
-      color: #000 !important;
-      border-color: #000 !important;
-    }
-
-    .btn-outline-dark:hover {
-      color: #000 !important;
-      background-color: transparent !important;
-      border-color: #000 !important;
-    }
-
-
-
-    /* Hover border line effect */
-    .project-card {
-      background: #fff;
-      border: 1px solid #eee;
-      transition: all 0.25s ease;
-      position: relative;
-    }
-
-    .project-card:hover {
-      border-color: #000;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      transform: translateY(-4px);
-    }
-  </style>
-
-  <!-- Footer -->
-  <footer class="footer-modern container py-5 mt-5" id="footer">
-
-    <!-- Nombre y Rol -->
-    <div class="text-center mb-4">
-      <h3 class="fw-bold mb-1 text-white">
-        <i class="bi bi-code-slash"></i> Magdiel Dominguez
-      </h3>
-      <span class="badge bg-primary text-light px-3 py-2">Desarrollador Web</span>
-    </div>
-
-    <!-- Links de navegación -->
-    <div class="footer-links text-center mb-4">
-      <a href="#demi" class="footer-link mx-3">Acerca de mí</a>
-      <a href="#ea" class="footer-link mx-3">Experiencias</a>
-      <a href="#proyects" class="footer-link mx-3">Proyectos</a>
-    </div>
-
-    <hr class="footer-divider">
-
-    <!-- Información Personal -->
-    <div class="row text-center footer-info mb-4">
-      <div class="col-md-6 mb-3">
-        <p><strong>Nombre:</strong> Jesus Magdiel Dominguez Baca</p>
-        <p><strong>Correo:</strong> 22CG0323@itsncg.edu.mx</p>
-      </div>
-      <div class="col-md-6 mb-3">
-        <p><strong>Celular:</strong> +52 636 103 0267</p>
-        <p>Nuevo Casas Grandes, Chihuahua.</p>
-      </div>
-    </div>
-
-    <hr class="footer-divider">
-
-    <!-- Última fila -->
-    <div class="d-flex justify-content-between align-items-center flex-wrap">
-
-      <p class="small mb-0 text-white">
-        © 2025 Magdiel D. Todos los derechos reservados.
-      </p>
-
-      <div class="footer-social d-flex gap-4 fs-5">
-        <a href="https://github.com/MagdielD901" class="footer-icon"><i class="bi bi-github"></i></a>
-        <a href="tel:+526361030267" class="footer-icon"> <i class="bi bi-telephone-fill"></i> </a>
-        <a href="https://wa.me/526361030267" class="footer-icon"><i class="bi bi-whatsapp"></i></a>
-      </div>
-    </div>
-
-  </footer>
-
-  <style>
-    .footer-modern {
-      border-radius: 20px;
-      padding: 3rem;
-      background: #000;
-      border: 1px solid #fff;
-      color: #fff !important;
-
-      /* ⭐ Glow azul elegante */
-      box-shadow:
-        0 0 15px #0d6efd80,
-        0 0 30px #0d6efd40,
-        0 0 45px #0d6efd20;
-    }
-
-    .footer-link {
-      text-decoration: none;
-      color: #fff;
-      font-size: 1rem;
-      transition: 0.2s ease;
-    }
-
-    .footer-link:hover {
-      color: #0d6efd;
-    }
-
-    .footer-divider {
-      opacity: 0.15;
-      margin: 1.5rem auto;
-      border-color: #fff;
-    }
-
-    .footer-icon {
-      color: #fff;
-      transition: 0.2s ease;
-    }
-
-    .footer-icon:hover {
-      color: #0d6efd;
-      transform: translateY(-3px);
-    }
-
-    .footer-info p {
-      margin: 4px 0;
-      font-size: 0.95rem;
-      color: #fff;
-    }
-  </style>
-
-
-
-
-
+  <!-- Google Fonts: Syne (display) + DM Sans (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Referencias del botón e ícono
-    const favBtn = document.getElementById("fav-btn");
-    const favIcon = document.getElementById("fav-icon");
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    // Leer estado guardado
-    let isFav = localStorage.getItem("proyecto_velamar_fav") === "true";
-
-    // Actualizar UI al cargar
-    function updateFavUI() {
-      if (isFav) {
-        favBtn.classList.add("fav-active");
-        favIcon.classList.remove("bi-star");
-        favIcon.classList.add("bi-star-fill");
-      } else {
-        favBtn.classList.remove("fav-active");
-        favIcon.classList.remove("bi-star-fill");
-        favIcon.classList.add("bi-star");
-      }
+  <style>
+    /* =====================
+       DESIGN TOKENS
+    ===================== */
+    :root {
+      --black: #030303;
+      --white: #f5f4f0;
+      --accent: #3b82f6;
+      --accent-dim: rgba(59,130,246,0.12);
+      --accent-glow: rgba(59,130,246,0.35);
+      --surface: rgba(255,255,255,0.04);
+      --surface-hover: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.16);
+      --text-muted: rgba(245,244,240,0.5);
+      --radius: 16px;
+      --radius-lg: 24px;
+      --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    // Ejecutar al cargar
-    updateFavUI();
+    /* =====================
+       RESET & BASE
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    // Evento al hacer clic
-    favBtn.addEventListener("click", function (e) {
-      e.preventDefault();
+    html { scroll-behavior: smooth; }
 
-      // Cambiar estado
-      isFav = !isFav;
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
 
-      // Guardar en localStorage
-      localStorage.setItem("proyecto_velamar_fav", isFav);
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
 
-      // Actualizar visual
-      updateFavUI();
+    /* Ambient light blobs */
+    .ambient {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+    }
+    .ambient-1 {
+      width: 600px; height: 600px;
+      background: var(--accent);
+      top: -200px; left: -200px;
+    }
+    .ambient-2 {
+      width: 400px; height: 400px;
+      background: #6366f1;
+      bottom: 10%; right: -100px;
+    }
+
+    /* =====================
+       TYPOGRAPHY
+    ===================== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    p { color: var(--text-muted); line-height: 1.75; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(59,130,246,0.25);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    /* =====================
+       LAYOUT
+    ===================== */
+    .container { position: relative; z-index: 1; }
+    section { padding: 120px 0; }
+
+    /* =====================
+       NAVBAR
+    ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(3,3,3,0.65);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px;
+    }
+
+    .nav-link-item {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted) !important;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+    .nav-link-item:hover {
+      color: var(--white) !important;
+      background: var(--surface-hover);
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 44px; height: 44px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 20px;
+      transition: var(--transition);
+    }
+    .hamburger-btn:hover { background: var(--surface-hover); }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hamburger-btn { display: flex; }
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,3,3,0.96);
+      backdrop-filter: blur(24px);
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      z-index: 998;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--white);
+      text-decoration: none;
+      padding: 12px 32px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+    .mobile-menu a:hover {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--white);
+      font-size: 20px;
+    }
+
+    /* =====================
+       HERO
+    ===================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      padding-top: 100px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 28px;
+      color: var(--white);
+    }
+    .hero-title .accent-word {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(245,244,240,0.4);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary-custom::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: 0 12px 32px var(--accent-glow); color: #fff; }
+    .btn-primary-custom:hover::after { opacity: 1; }
+
+    .btn-ghost-custom {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 13px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid var(--border-strong);
+      transition: var(--transition);
+    }
+    .btn-ghost-custom:hover {
+      background: var(--surface-hover);
+      border-color: rgba(255,255,255,0.3);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: fadeInUp 1s 1.5s both;
+    }
+    .scroll-hint i { animation: bounce 2s infinite; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* =====================
+       ABOUT SECTION
+    ===================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    .about-heading {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .about-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .about-visual {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .about-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: var(--transition);
+    }
+    .about-visual:hover img { opacity: 1; transform: scale(1.03); }
+    /* Decorative corner accent */
+    .about-visual::before {
+      content: '';
+      position: absolute;
+      top: -1px; right: -1px;
+      width: 80px; height: 80px;
+      border-top: 2px solid var(--accent);
+      border-right: 2px solid var(--accent);
+      border-radius: 0 var(--radius-lg) 0 0;
+      z-index: 2;
+    }
+    .about-visual::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: -1px;
+      width: 80px; height: 80px;
+      border-bottom: 2px solid var(--accent);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 0 0 var(--radius-lg);
+      z-index: 2;
+    }
+
+    /* =====================
+       STATS ROW
+    ===================== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 64px;
+    }
+
+    .stat-item {
+      background: var(--black);
+      padding: 32px 24px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .stat-item:hover { background: var(--surface); }
+
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.04em;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* =====================
+       EXPERIENCE / TIMELINE
+    ===================== */
+    .timeline {
+      position: relative;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .timeline-dot-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 6px;
+    }
+
+    .timeline-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-dim);
+      flex-shrink: 0;
+    }
+
+    .timeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      transition: var(--transition);
+    }
+    .timeline-card:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-hover);
+      transform: translateX(4px);
+    }
+
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .timeline-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .timeline-role {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .timeline-desc ul {
+      list-style: none;
+      padding: 0;
+    }
+    .timeline-desc ul li {
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+      font-size: 0.875rem;
+    }
+    .timeline-desc ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* =====================
+       SKILLS
+    ===================== */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .skill-pill {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: default;
+      transition: var(--transition);
+    }
+    .skill-pill:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Languages */
+    .lang-grid {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .lang-card {
+      flex: 1;
+      min-width: 160px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .lang-card:hover {
+      border-color: var(--border-strong);
+      background: var(--surface-hover);
+      transform: translateY(-4px);
+    }
+    .lang-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .lang-level {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    /* =====================
+       PROJECTS
+    ===================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .project-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+
+    .project-thumb {
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      position: relative;
+    }
+    .project-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .project-card:hover .project-thumb img { transform: scale(1.06); }
+
+    /* Thumb overlay on hover */
+    .project-thumb::after {
+      content: 'Ver proyecto';
+      position: absolute;
+      inset: 0;
+      background: rgba(3,3,3,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .project-card:hover .project-thumb::after { opacity: 1; }
+
+    .project-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+
+    .project-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 5px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.18);
+      color: rgba(59,130,246,0.9);
+    }
+
+    .project-actions { display: flex; gap: 10px; }
+
+    .btn-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 9px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-view:hover { opacity: 0.85; color: #fff; }
+
+    .btn-fav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 400;
+      padding: 9px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-fav:hover { border-color: var(--border-strong); color: var(--white); }
+    .btn-fav.fav-active { background: rgba(250,204,21,0.1); border-color: rgba(250,204,21,0.4); color: #facc15; }
+
+    /* =====================
+       MODALS
+    ===================== */
+    .modal-content {
+      background: #0d0d0d;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg) !important;
+      overflow: hidden;
+    }
+
+    .modal-carousel-wrap {
+      padding: 16px;
+      background: #111;
+      position: relative;
+    }
+
+    .carousel-inner { border-radius: var(--radius); overflow: hidden; }
+
+    .loader-pill {
+      position: absolute;
+      bottom: 26px; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      z-index: 10;
+    }
+    .loader-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 999px;
+    }
+
+    .modal-info {
+      padding: 28px 32px;
+    }
+    .modal-title-custom {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .modal-desc {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 10;
+      text-decoration: none;
+    }
+    .modal-close-btn:hover { background: var(--surface-hover); color: var(--white); }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    footer {
+      padding: 64px 0 40px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 48px;
+      margin-bottom: 64px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .footer-brand .footer-logo span { color: var(--accent); }
+    .footer-brand p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      max-width: 260px;
+    }
+
+    .footer-nav-group h6 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .footer-nav-group a {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+    .footer-nav-group a:hover { color: var(--white); }
+
+    .footer-contact-group h6 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .footer-contact-item i { color: var(--accent); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .footer-socials {
+      display: flex;
+      gap: 10px;
+    }
+    .social-icon {
+      width: 38px; height: 38px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 16px;
+      transition: var(--transition);
+    }
+    .social-icon:hover {
+      background: var(--surface-hover);
+      border-color: var(--border-strong);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* =====================
+       DIVIDER
+    ===================== */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    /* =====================
+       ANIMATIONS
+    ===================== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.45s; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* section heading */
+    .section-heading {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient -->
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">Magdiel<span>.</span></a>
+
+    <div class="nav-links">
+      <a href="#about" class="nav-link-item">Acerca de mí</a>
+      <a href="#experience" class="nav-link-item">Experiencia</a>
+      <a href="#projects" class="nav-link-item">Proyectos</a>
+    </div>
+
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+      <i class="bi bi-list"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose"><i class="bi bi-x"></i></button>
+    <a href="#about" class="mobile-link">Acerca de mí</a>
+    <a href="#experience" class="mobile-link">Experiencia</a>
+    <a href="#projects" class="mobile-link">Proyectos</a>
+  </div>
+
+  <!-- =====================
+       HERO
+  ===================== -->
+  <section class="hero" id="home">
+    <div class="hero-eyebrow fade-in-up">
+      Jesús Magdiel Dominguez Baca
+    </div>
+
+    <h1 class="hero-title fade-in-up delay-1">
+      Desarrollador<br>
+      <span class="accent-word">Full Stack</span>
+    </h1>
+
+    <p class="hero-sub fade-in-up delay-2">
+      Diseño y construyo aplicaciones web y móviles modernas, escalables y con atención al detalle.
+    </p>
+
+    <div class="hero-actions fade-in-up delay-3">
+      <a href="#projects" class="btn-primary-custom">
+        Ver proyectos <i class="bi bi-arrow-right"></i>
+      </a>
+      <a href="#about" class="btn-ghost-custom">
+        Acerca de mí
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      Scroll <i class="bi bi-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- =====================
+       ABOUT
+  ===================== -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <!-- Text -->
+        <div class="reveal">
+          <div class="section-label">
+            <i class="bi bi-person"></i> Acerca de mí
+          </div>
+
+          <h2 class="about-heading">
+            Enfocado en crear experiencias<br>
+            digitales que importan
+          </h2>
+
+          <p class="about-text">
+            Soy estudiante de Ingeniería en Sistemas Computacionales con enfoque en desarrollo Full Stack. Me especializo en construir aplicaciones web y móviles que combinan interfaces modernas con lógica backend eficiente. Me interesa crecer profesionalmente y contribuir a proyectos reales con impacto.
+          </p>
+
+          <div class="about-actions">
+            <a href="#projects" class="btn-primary-custom">
+              <i class="bi bi-code-slash"></i> Proyectos
+            </a>
+            <a href="./img/Documentos/CV.pdf" download="Magdiel_CV.pdf" class="btn-ghost-custom">
+              <i class="bi bi-download"></i> Descargar CV
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual -->
+        <div class="about-visual reveal" style="animation-delay:0.15s">
+          <img src="./img/Swoopy/2.png" alt="Magdiel Dominguez — Desarrollador Full Stack">
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row reveal" style="margin-top:80px">
+        <div class="stat-item">
+          <span class="stat-number">6+</span>
+          <span class="stat-label">Proyectos completados</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4+</span>
+          <span class="stat-label">Años de práctica</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">8+</span>
+          <span class="stat-label">Tecnologías dominadas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="section-divider"></div></div>
+
+  <!-- =====================
+       EXPERIENCE
+  ===================== -->
+  <section id="experience">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-label" style="margin:0 auto 20px;">
+          <i class="bi bi-briefcase"></i> Experiencia
+        </div>
+        <h2 class="section-heading">Mi camino en el desarrollo</h2>
+        <p class="section-sub">Un recorrido por los proyectos y etapas que han formado mi perfil como desarrollador.</p>
+      </div>
+
+      <div class="timeline">
+
+        <!-- Item 1 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot-wrap">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <i class="bi bi-circle-fill" style="font-size:6px"></i> En desarrollo
+            </div>
+            <div class="timeline-title">Swoopy — Proyecto Principal</div>
+            <div class="timeline-role">Desarrollador Full-Stack</div>
+            <div class="timeline-desc">
+              <ul>
+                <li>Aplicación tipo red social con sistema de usuarios, feed e interacción</li>
+                <li>Módulo marketplace integrado con sistema de recompensas (Orbix)</li>
+                <li>Backend robusto con Laravel y base de datos relacional</li>
+                <li>Frontend móvil con React Native y TypeScript</li>
+                <li>Comunicación completa mediante APIs REST</li>
+              </ul>
+            </div>
+            <div class="tag-row">
+              <span class="tag">React Native</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Laravel</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item reveal" style="transition-delay:0.1s">
+          <div class="timeline-dot-wrap">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <i class="bi bi-circle-fill" style="font-size:6px"></i> En formación
+            </div>
+            <div class="timeline-title">Proyectos Universitarios y Personales</div>
+            <div class="timeline-role">Desarrollador Full-Stack</div>
+            <div class="timeline-desc">
+              Construcción de aplicaciones web completas: dashboards, sliders, filtros avanzados, integración de APIs, componentes React y sistemas interactivos. Enfoque constante en interfaces limpias, funcionales y responsivas conectadas con backends bien estructurados.
+            </div>
+            <div class="tag-row">
+              <span class="tag">React</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">PHP</span>
+              <span class="tag">Laravel</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item reveal" style="transition-delay:0.2s">
+          <div class="timeline-dot-wrap">
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <i class="bi bi-circle-fill" style="font-size:6px"></i> 2022 – 2024
+            </div>
+            <div class="timeline-title">Proyectos y Colaboraciones</div>
+            <div class="timeline-role">Desarrollador Web</div>
+            <div class="timeline-desc">
+              Landing pages, optimización visual, animaciones ligeras, integración de menús y personalización de estilos. Apoyo en proyectos familiares y personales, desarrollando sensibilidad por el detalle visual y la experiencia de usuario.
+            </div>
+            <div class="tag-row">
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="section-divider"></div></div>
+
+  <!-- =====================
+       SKILLS + LANGUAGES
+  ===================== -->
+  <section>
+    <div class="container">
+      <div class="row g-5">
+
+        <!-- Skills -->
+        <div class="col-lg-7 reveal">
+          <div class="section-label">
+            <i class="bi bi-cpu"></i> Habilidades Técnicas
+          </div>
+          <h2 class="section-heading" style="margin-bottom:32px">Stack tecnológico</h2>
+          <div class="skills-grid" style="justify-content:flex-start">
+            <div class="skill-pill">React</div>
+            <div class="skill-pill">React Native</div>
+            <div class="skill-pill">Laravel</div>
+            <div class="skill-pill">HTML5</div>
+            <div class="skill-pill">CSS3</div>
+            <div class="skill-pill">JavaScript</div>
+            <div class="skill-pill">TypeScript</div>
+            <div class="skill-pill">PHP</div>
+            <div class="skill-pill">MySQL</div>
+            <div class="skill-pill">Node.js</div>
+            <div class="skill-pill">Bootstrap</div>
+            <div class="skill-pill">Git</div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="col-lg-5 reveal" style="transition-delay:0.1s">
+          <div class="section-label">
+            <i class="bi bi-translate"></i> Idiomas
+          </div>
+          <h2 class="section-heading" style="margin-bottom:32px">Comunicación</h2>
+          <div class="lang-grid" style="justify-content:flex-start">
+            <div class="lang-card">
+              <div class="lang-name">Español</div>
+              <div class="lang-level">Nativo</div>
+            </div>
+            <div class="lang-card">
+              <div class="lang-name">Inglés</div>
+              <div class="lang-level">Nivel B1</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="container"><div class="section-divider"></div></div>
+
+  <!-- =====================
+       PROJECTS
+  ===================== -->
+  <section id="projects">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <div class="section-label" style="margin:0 auto 20px;">
+          <i class="bi bi-layers"></i> Proyectos
+        </div>
+        <h2 class="section-heading">Trabajo destacado</h2>
+        <p class="section-sub">Una selección de proyectos que reflejan mi proceso, criterio técnico y atención al detalle.</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Card: Swoopy -->
+        <div class="project-card reveal" data-bs-toggle="modal" data-bs-target="#Modal6">
+          <div class="project-thumb">
+            <img src="./img/Swoopy/1.png" alt="Swoopy">
+          </div>
+          <div class="project-body">
+            <div class="project-name">Swoopy</div>
+            <p class="project-desc">Red social con feed, interacción entre usuarios, sistema de recompensas Orbix y marketplace integrado. "Proyecto en desarrollo, realizado en equipo."</p>
+            <div class="project-tags">
+              <span class="project-tag">React Native</span>
+              <span class="project-tag">Laravel</span>
+              <span class="project-tag">MySQL</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn-view">
+                <i class="bi bi-play-fill"></i> Ver
+              </button>
+              <button class="btn-fav" data-key="swoopy">
+                <i class="bi bi-star"></i> Favorito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Velamar -->
+        <div class="project-card reveal" style="transition-delay:0.05s" data-bs-toggle="modal" data-bs-target="#projectModal">
+          <div class="project-thumb">
+            <img src="./img/velamar/velamar1.png" alt="Departamentos Velamar">
+          </div>
+          <div class="project-body">
+            <div class="project-name">Departamentos Velamar</div>
+            <p class="project-desc">Sistema web para explorar departamentos, verificar disponibilidad y gestionar datos mediante un panel administrativo. "Proyecto realizado en equipo."</p>
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">PHP</span>
+              <span class="project-tag">MySQL</span>
+              <span class="project-tag">Bootstrap</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn-view">
+                <i class="bi bi-play-fill"></i> Ver
+              </button>
+              <button class="btn-fav" data-key="velamar">
+                <i class="bi bi-star"></i> Favorito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Ayuntamiento -->
+        <div class="project-card reveal" style="transition-delay:0.1s" data-bs-toggle="modal" data-bs-target="#Modal2">
+          <div class="project-thumb">
+            <img src="./img/Ayuntamiento/a1.png" alt="H. Ayuntamiento">
+          </div>
+          <div class="project-body">
+            <div class="project-name">H. Ayuntamiento</div>
+            <p class="project-desc">Diseño de plataforma digital para consultar acuerdos, organizar sesiones y facilitar la gestión interna del Ayuntamiento. "Proyecto realizado en equipo."</p>
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">Bootstrap</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn-view">
+                <i class="bi bi-play-fill"></i> Ver
+              </button>
+              <button class="btn-fav" data-key="ayuntamiento">
+                <i class="bi bi-star"></i> Favorito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Ferreti -->
+        <div class="project-card reveal" style="transition-delay:0.15s" data-bs-toggle="modal" data-bs-target="#Modal3">
+          <div class="project-thumb">
+            <img src="./img/Ferreti/f1.png" alt="Beaufort Ferreti">
+          </div>
+          <div class="project-body">
+            <div class="project-name">Beaufort Ferreti</div>
+            <p class="project-desc">Plataforma digital para explorar prendas, gestionar catálogos y ofrecer una experiencia de compra visual y dinámica.</p>
+            <div class="project-tags">
+              <span class="project-tag">PHP</span>
+              <span class="project-tag">MySQL</span>
+              <span class="project-tag">Bootstrap</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn-view">
+                <i class="bi bi-play-fill"></i> Ver
+              </button>
+              <button class="btn-fav" data-key="ferreti">
+                <i class="bi bi-star"></i> Favorito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Recetario -->
+        <div class="project-card reveal" style="transition-delay:0.2s" data-bs-toggle="modal" data-bs-target="#Modal4">
+          <div class="project-thumb">
+            <img src="./img/Recetas/r1.png" alt="Recetario">
+          </div>
+          <div class="project-body">
+            <div class="project-name">Recetario</div>
+            <p class="project-desc">Plataforma para buscar recetas, organizar ingredientes y facilitar la preparación de platillos para una pastelera.</p>
+            <div class="project-tags">
+              <span class="project-tag">PHP</span>
+              <span class="project-tag">MySQL</span>
+              <span class="project-tag">JavaScript</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn-view">
+                <i class="bi bi-play-fill"></i> Ver
+              </button>
+              <button class="btn-fav" data-key="recetario">
+                <i class="bi bi-star"></i> Favorito
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card: Spectra -->
+        <div class="project-card reveal" style="transition-delay:0.25s" data-bs-toggle="modal" data-bs-target="#Modal5">
+          <div class="project-thumb">
+            <img src="./img/Spectra/S2.png" alt="Spectra">
+          </div>
+          <div class="project-body">
+            <div class="project-name">Spectra</div>
+            <p class="project-desc">Generación automatizada de componentes web para agilizar el desarrollo, mejorar flujos y optimizar la creación de interfaces. "Proyecto realizado en equipo."</p>
+            <div class="project-tags">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Laravel</span>
+              <span class="project-tag">JavaScript</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn-view">
+                <i class="bi bi-play-fill"></i> Ver
+              </button>
+              <button class="btn-fav" data-key="spectra">
+                <i class="bi bi-star"></i> Favorito
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       MODALS
+  ===================== -->
+
+  <!-- Helper: modal template via JS -->
+  <!-- Modal 6: Swoopy -->
+  <div class="modal fade" id="Modal6" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <div class="modal-carousel-wrap">
+          <div id="c6" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./img/Swoopy/1.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Swoopy/2.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Swoopy/3.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Swoopy/4.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Swoopy/5.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Swoopy/6.png" class="d-block w-100" alt=""></div>
+            </div>
+            <div class="loader-pill"><div class="loader-bar" id="lb6"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <div class="modal-title-custom">Swoopy</div>
+          <p class="modal-desc">Swoopy es una aplicación tipo red social donde los usuarios pueden interactuar mediante publicaciones, comentarios, reacciones y mensajes. Integra un sistema interno llamado Orbix que impulsa la participación dentro de la plataforma, además de un marketplace enfocado en la venta de productos entre usuarios. Todo diseñado para ofrecer una experiencia rápida, intuitiva y fácil de usar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 1: Velamar -->
+  <div class="modal fade" id="projectModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <div class="modal-carousel-wrap">
+          <div id="c1" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./img/velamar/velamar1.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar2.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar3.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar4.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar5.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar6.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar7.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar8.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/velamar/velamar9.png" class="d-block w-100" alt=""></div>
+            </div>
+            <div class="loader-pill"><div class="loader-bar" id="lb1"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <div class="modal-title-custom">Departamentos Velamar</div>
+          <p class="modal-desc">Sistema web que centraliza la administración y visualización de departamentos. El usuario puede explorar cada propiedad, revisar disponibilidad, consultar precios, ver imágenes y obtener información clave. Los administradores tienen acceso a un panel para modificar datos, actualizar inventarios, gestionar calendarios y mantener todo el contenido en sincronía.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Ayuntamiento -->
+  <div class="modal fade" id="Modal2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <div class="modal-carousel-wrap">
+          <div id="c2" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./img/Ayuntamiento/a1.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a2.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a3.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a4.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a5.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a6.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a7.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a8.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ayuntamiento/a9.png" class="d-block w-100" alt=""></div>
+            </div>
+            <div class="loader-pill"><div class="loader-bar" id="lb2"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <div class="modal-title-custom">H. Ayuntamiento</div>
+          <p class="modal-desc">Sistema desarrollado para centralizar la información del H. Ayuntamiento y mejorar el acceso a acuerdos y sesiones. Permite consultar documentos, organizar contenidos, administrar datos internos y mantener un registro claro de cada proceso. Su diseño está enfocado en transparencia, eficiencia y facilidad de uso para cualquier usuario autorizado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Ferreti -->
+  <div class="modal fade" id="Modal3" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <div class="modal-carousel-wrap">
+          <div id="c3" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./img/Ferreti/f1.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ferreti/f2.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ferreti/f3.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Ferreti/f4.png" class="d-block w-100" alt=""></div>
+            </div>
+            <div class="loader-pill"><div class="loader-bar" id="lb3"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <div class="modal-title-custom">Beaufort Ferreti</div>
+          <p class="modal-desc">Sistema creado para centralizar la gestión de una tienda de ropa y optimizar la experiencia del cliente. Permite explorar colecciones, organizar catálogos, administrar inventarios y mantener un control claro de cada producto. Diseño enfocado en eficiencia, estética visual y facilidad de uso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Recetario -->
+  <div class="modal fade" id="Modal4" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <div class="modal-carousel-wrap">
+          <div id="c4" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./img/Recetas/r1.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Recetas/r2.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Recetas/r3.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Recetas/r4.png" class="d-block w-100" alt=""></div>
+            </div>
+            <div class="loader-pill"><div class="loader-bar" id="lb4"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <div class="modal-title-custom">Recetario</div>
+          <p class="modal-desc">Sistema creado para centralizar las recetas de mi mamá, quien es pastelera, y facilitar la organización de todos sus procesos. Permite consultar preparaciones, clasificar ingredientes, administrar notas personales y mantener un registro claro de cada creación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Spectra -->
+  <div class="modal fade" id="Modal5" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <a class="modal-close-btn" data-bs-dismiss="modal"><i class="bi bi-x"></i></a>
+        <div class="modal-carousel-wrap">
+          <div id="c5" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+              <div class="carousel-item active"><img src="./img/Spectra/S1.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Spectra/S2.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Spectra/S3.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Spectra/S4.png" class="d-block w-100" alt=""></div>
+              <div class="carousel-item"><img src="./img/Spectra/S5.png" class="d-block w-100" alt=""></div>
+            </div>
+            <div class="loader-pill"><div class="loader-bar" id="lb5"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <div class="modal-title-custom">Spectra</div>
+          <p class="modal-desc">Sistema desarrollado para simplificar la creación de componentes dentro de proyectos web, permitiendo generar elementos visuales y funcionales de manera rápida y organizada. Facilita seleccionar estilos, estructuras y propiedades, ofreciendo un proceso más eficiente para desarrolladores.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================
+       FOOTER
+  ===================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <div class="footer-logo">Magdiel<span>.</span></div>
+          <p>Desarrollador Full Stack enfocado en crear experiencias digitales modernas y funcionales.</p>
+        </div>
+
+        <div class="footer-nav-group">
+          <h6>Navegación</h6>
+          <a href="#about">Acerca de mí</a>
+          <a href="#experience">Experiencia</a>
+          <a href="#projects">Proyectos</a>
+        </div>
+
+        <div class="footer-contact-group">
+          <h6>Contacto</h6>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <span>22CG0323@itsncg.edu.mx</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <span>+52 636 103 0267</span>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <span>Nuevo Casas Grandes, Chihuahua</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Magdiel Dominguez. Todos los derechos reservados.</span>
+        <div class="footer-socials">
+          <a href="https://github.com/MagdielD901" class="social-icon" target="_blank" title="GitHub">
+            <i class="bi bi-github"></i>
+          </a>
+          <a href="https://wa.me/526361030267" class="social-icon" target="_blank" title="WhatsApp">
+            <i class="bi bi-whatsapp"></i>
+          </a>
+          <a href="tel:+526361030267" class="social-icon" title="Llamar">
+            <i class="bi bi-telephone"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // =====================
+    // MOBILE MENU
+    // =====================
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    hamburgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // =====================
+    // SCROLL REVEAL
+    // =====================
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // =====================
+    // CAROUSEL LOADER
+    // =====================
+    function initCarouselLoader(carouselId, loaderId) {
+      const carouselEl = document.getElementById(carouselId);
+      const loaderEl = document.getElementById(loaderId);
+      if (!carouselEl || !loaderEl) return;
+
+      const carousel = new bootstrap.Carousel(carouselEl, { interval: false, ride: false });
+      let timer;
+
+      function startCycle() {
+        loaderEl.style.animation = 'none';
+        void loaderEl.offsetWidth;
+        loaderEl.style.animation = 'loadBarAnim 3s linear forwards';
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          carousel.next();
+          startCycle();
+        }, 3000);
+      }
+
+      // Start when modal opens
+      const modalEl = carouselEl.closest('.modal');
+      modalEl.addEventListener('shown.bs.modal', () => {
+        carousel.to(0);
+        startCycle();
+      });
+      modalEl.addEventListener('hidden.bs.modal', () => {
+        clearTimeout(timer);
+        loaderEl.style.animation = 'none';
+      });
+    }
+
+    // Init all carousels
+    initCarouselLoader('c6', 'lb6');
+    initCarouselLoader('c1', 'lb1');
+    initCarouselLoader('c2', 'lb2');
+    initCarouselLoader('c3', 'lb3');
+    initCarouselLoader('c4', 'lb4');
+    initCarouselLoader('c5', 'lb5');
+
+    // =====================
+    // FAV BUTTONS
+    // =====================
+    document.querySelectorAll('.btn-fav').forEach(btn => {
+      const key = 'fav_' + btn.dataset.key;
+      let active = localStorage.getItem(key) === 'true';
+
+      function updateFav() {
+        const icon = btn.querySelector('i');
+        if (active) {
+          btn.classList.add('fav-active');
+          icon.classList.replace('bi-star', 'bi-star-fill');
+        } else {
+          btn.classList.remove('fav-active');
+          icon.classList.replace('bi-star-fill', 'bi-star');
+        }
+      }
+      updateFav();
+
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        active = !active;
+        localStorage.setItem(key, active);
+        updateFav();
+      });
     });
   </script>
 
-  <script>
-    let timer = null;
-
-    function startLoader() {
-      loader.style.animation = "none";
-      void loader.offsetWidth;
-      loader.style.animation = "loadBar 3s linear forwards";
-
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        carousel.next();
-        startLoader();
-      }, 3000);
+  <style>
+    @keyframes loadBarAnim {
+      from { width: 0%; }
+      to { width: 100%; }
     }
-
-  </script>
+  </style>
 
 </body>
-
 </html>
